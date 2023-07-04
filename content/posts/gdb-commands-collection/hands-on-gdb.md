@@ -12,7 +12,7 @@ I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [C
 ### Highlights
 
 `gdb [prog_name]` is used to load program waited to be debugged into gdb.  
-In the gdb prompt, `run` the prog or `quit` gdb.
+In the gdb prompt, we can `run` prog or `quit` gdb.
 
 `break [function name]` will set breakpoint at certain function.  
 Ex: `break LinkedList<int>::remove`

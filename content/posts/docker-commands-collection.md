@@ -5,4 +5,11 @@ draft: true
 tags: ["docker"]
 ---
 
-## References
+### ps
+
+list all of the images
+```cmd
+docker ps
+```
+
+### References
