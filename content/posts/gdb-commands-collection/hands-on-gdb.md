@@ -2,12 +2,12 @@
 title: "Hands on Gdb"
 date: 2023-07-04T13:02:54+02:00
 draft: false
-tags: ["gdb"]
+tags: ["gdb", "CMU-15445"]
 ---
 
 ### Background
 
-I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [CMU15445-Project0](https://15445.courses.cs.cmu.edu/spring2023/project0/), mainly helping student to hand on gdb. This post is a brief summary for this blog, appending my bug-free code for the example source code.
+I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [CMU15445-Project0](https://15445.courses.cs.cmu.edu/spring2023/project0/), mainly providing a hands-on way to learn gdb. This post is a brief summary for this blog, appending my bug-free code for the example source code.
 
 ### Highlights
 
@@ -15,10 +15,10 @@ I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [C
 In the gdb prompt, `run` the prog or `quit` gdb.
 
 `break [function name]` will set breakpoint at certain function.  
-Example: `break LinkedList<int>::remove`
+Ex: `break LinkedList<int>::remove`
 
 `condition [N] [condition]` will append condition to breakpoint(make conditional breakpoints) which will filter the timing of the breakpoint.  
-Example: `condition 1 item_to_remove == 1`
+Ex: `condition 1 item_to_remove == 1`
 
 `step` will step into the function.  
 `next` is used to skip the function call, not stepping into the function.
