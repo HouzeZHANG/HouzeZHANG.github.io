@@ -11,16 +11,16 @@ I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [C
 
 ### Summary
 
-`gdb [prog_name]` is used to load program waited to be debugged into gdb.
+`gdb [prog_name]` is used to load program waited to be debugged into gdb.  
 In the gdb prompt, `run` the prog or `quit` gdb.
 
-`break [function name]` will set breakpoint at certain function.
-example: `break LinkedList<int>::remove`
+`break [function name]` will set breakpoint at certain function.  
+Example: `break LinkedList<int>::remove`
 
-`condition [N] [condition]` will append condition to breakpoint(make conditional breakpoints) which will filter the timing of the breakpoint.
-example: `condition 1 item_to_remove == 1`
+`condition [N] [condition]` will append condition to breakpoint(make conditional breakpoints) which will filter the timing of the breakpoint.  
+Example: `condition 1 item_to_remove == 1`
 
-`step` will step into the function.
+`step` will step into the function.  
 `next` is used to skip the function call, not stepping into the function.
 
 ### Assignment
