@@ -1,0 +1,1 @@
+This is a hugo-based personal page, please move to https://houzezhang.github.io
