@@ -11,11 +11,12 @@ There are three methods to implement **varying parameters** in C++. This post wi
 
 ### initializer_list
 
-Using **for loop** to iterate initializer_list object  
-Elements should be the **same type** in initializer_list  
-Which is a **template library type**  
-Elements are **always const** in initializer_list  
-When **copy** initializer_list objects, the **elements** underlayer **will not be copied**. The initializer_list objects will **share** those elements.  
+Some notes on using initializer_list：
+- Using **for loop** to iterate initializer_list object  
+- Elements should be the **same type** in initializer_list  
+- Which is a **template library type**  
+- Elements are **always const** in initializer_list  
+- When **copy** initializer_list objects, the **elements** underlayer **will not be copied**. The initializer_list objects will **share** those elements.  
 
 #### Assignment
 
