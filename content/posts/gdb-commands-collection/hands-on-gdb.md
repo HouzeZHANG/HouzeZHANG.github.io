@@ -11,17 +11,14 @@ I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [C
 
 ### Highlights
 
-`gdb [prog_name]` is used to load program waited to be debugged into gdb.  
-In the gdb prompt, we can `run` prog or `quit` gdb.
-
-`break [function name]` will set breakpoint at certain function.  
-Ex: `break LinkedList<int>::remove`
-
-`condition [N] [condition]` will append condition to breakpoint(make conditional breakpoints) which will filter the timing of the breakpoint.  
-Ex: `condition 1 item_to_remove == 1`
-
-`step` will step into the function.  
-`next` is used to skip the function call, not stepping into the function.
+- `gdb [prog_name]` is used to load program waited to be debugged into gdb.  
+- In the gdb prompt, we can `run` prog or `quit` gdb.
+- `break [function name]` will set breakpoint at certain function.  
+Ex: `break LinkedList<int>::remove` will set a breakpoint on the LinkedList<int>::remove method  
+- `condition [N] [condition]` will will add a conditional constraint to the breakpoint (make conditional breakpoints)  
+Ex: `condition 1 item_to_remove == 1` means that when the breakpoint 1 is reached, gdb will terminate the program only when item_to_remove == 1  
+- `step` will step into the function.  
+- `next` is used to skip the function call, not stepping into the function.
 
 ### Assignment
 
