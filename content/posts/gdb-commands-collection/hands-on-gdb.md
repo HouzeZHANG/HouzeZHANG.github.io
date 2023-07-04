@@ -1,5 +1,5 @@
 ---
-title: "Hands on Gdb"
+title: "Hands-on gdb"
 date: 2023-07-04T13:02:54+02:00
 draft: false
 tags: ["gdb", "CMU-15445"]
