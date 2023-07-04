@@ -1,0 +1,36 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>My New Hugo Site</title>
+        <link>http://example.org/</link>
+        <description>This is my cool site</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</lastBuildDate>
+            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Computer Systems A Programmer&#39;s Perspective [Note 1]</title>
+    <link>http://example.org/posts/csapp-note-1/</link>
+    <pubDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/posts/csapp-note-1/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Database System Concepts Note 1</title>
+    <link>http://example.org/posts/dbsc-notes-1/</link>
+    <pubDate>Sun, 02 Jul 2023 15:38:35 &#43;0200</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/posts/dbsc-notes-1/</guid>
+    <description><![CDATA[Remark This blog series share and document interesting points of knowledge and reflections that I noticed while studying the textbook Database System Concepts (7th Edition). This blog is the first chapter of this blog series.
+Data Abstraction View level. The highest level of abstraction describes only part of the entire database. Even though the logical level uses simpler structures, complexity remains because of the variety of information stored in a large database.]]></description>
+</item>
+<item>
+    <title>Access Control in Cplusplus</title>
+    <link>http://example.org/posts/access-control-in-cplusplus/</link>
+    <pubDate>Sun, 02 Jul 2023 15:24:50 &#43;0200</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/posts/access-control-in-cplusplus/</guid>
+    <description><![CDATA[Background C++ provides programmers with a powerful set of access control modifiers, today I&rsquo;ll talk about private, public and protected with three different types of inheritance in C++.
+Before I start, I&rsquo;d like to thank Antoine JOUGLET of UTC and his LO21 course for helping me sort out these concepts.
+Why access control? 访问控制符需要解决的问题？]]></description>
+</item>
+</channel>
+</rss>

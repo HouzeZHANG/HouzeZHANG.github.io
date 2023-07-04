@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>CMU 15-445 - Tag - My New Hugo Site</title>
+        <link>http://example.org/tags/cmu-15-445/</link>
+        <description>CMU 15-445 - Tag - My New Hugo Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 02 Jul 2023 15:38:35 &#43;0200</lastBuildDate><atom:link href="http://example.org/tags/cmu-15-445/" rel="self" type="application/rss+xml" /><item>
+    <title>Database System Concepts Note 1</title>
+    <link>http://example.org/posts/dbsc-notes-1/</link>
+    <pubDate>Sun, 02 Jul 2023 15:38:35 &#43;0200</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/posts/dbsc-notes-1/</guid>
+    <description><![CDATA[Remark This blog series share and document interesting points of knowledge and reflections that I noticed while studying the textbook Database System Concepts (7th Edition). This blog is the first chapter of this blog series.
+Data Abstraction View level. The highest level of abstraction describes only part of the entire database. Even though the logical level uses simpler structures, complexity remains because of the variety of information stored in a large database.]]></description>
+</item>
+</channel>
+</rss>
