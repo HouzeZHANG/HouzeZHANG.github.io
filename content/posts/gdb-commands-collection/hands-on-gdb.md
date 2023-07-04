@@ -1,13 +1,13 @@
 ---
 title: "Hands on Gdb"
 date: 2023-07-04T13:02:54+02:00
-draft: true
+draft: false
 tags: ["gdb"]
 ---
 
 ### Background
 
-I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/)when I was learning [CMU15445-Project0](https://15445.courses.cs.cmu.edu/spring2023/project0/)。Mainly help student hands on gdb. This post is a brief summary for this blog, appending my bug-free code for the example source code.
+I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [CMU15445-Project0](https://15445.courses.cs.cmu.edu/spring2023/project0/), mainly helping student to hand on gdb. This post is a brief summary for this blog, appending my bug-free code for the example source code.
 
 ### Summary
 
@@ -25,7 +25,7 @@ example: `condition 1 item_to_remove == 1`
 
 ### Assignment
 
-The example `main.cc` which is provided by author is a demo for linked list. The following source code is the **bug-free** version, without memory-leak. You can find the original version [here](https://www.cs.cmu.edu/~gilpin/tutorial/main.cc).
+The example `main.cc` which is provided by author is a demo for linked list. The following source code is the **bug-free** version, without memory-leak. You can find the original code [here](https://www.cs.cmu.edu/~gilpin/tutorial/main.cc).
 
 ```c++
 // main.cc
