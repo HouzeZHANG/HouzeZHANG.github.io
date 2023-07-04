@@ -9,7 +9,7 @@ tags: ["gdb"]
 
 I read [this blog](https://www.cs.cmu.edu/~gilpin/tutorial/) when I was doing [CMU15445-Project0](https://15445.courses.cs.cmu.edu/spring2023/project0/), mainly helping student to hand on gdb. This post is a brief summary for this blog, appending my bug-free code for the example source code.
 
-### Summary
+### Highlights
 
 `gdb [prog_name]` is used to load program waited to be debugged into gdb.  
 In the gdb prompt, `run` the prog or `quit` gdb.
