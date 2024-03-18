@@ -379,3 +379,105 @@ root@01432d9b9db7:/# curl -s search:9200
   "tagline" : "You Know, for Search"
 }
 ```
+
+## Section 5 Container Images
+
+### 5.1 Docker Images and Docker Hub
+
+What an image include?
+- app binaries and dependencies
+- metadata about the image data and how to run the image
+
+Points:
+- The host provides the kernel, so there is no kernel in the image(different from the VM), GO's executable file is very small.
+- Docker hub is similar to the apt package system for containers.
+
+---
+
+`docker image ls`           查看所有docker镜像
+`docker image history`      history of the image layer
+
+*Stack of image layers*: image是分层存储的，一系列image类似于一棵版本树。靠近根节点的节点不会多次存储
+
+*Read write layer*: 如果我们创建一个container，我们就在image层上添加一层*read write layer*，container本质上并不是启动了的image，`docker ps`是显示在运行的*container*，而`docker ps -a`是显示所有*container*
+
+*containers*类似于file system，*docker storage driver*负责在*stack of image layer*上堆，*image*的存储，传播以及`docker build`是很节约时间空间的，用的是*copy on write*技术
+
+这些*missing layer*是内部层，正是这些内部层的堆叠构成了`ca2b0f26964c`这个容器
+
+```bash
+houze@IVT-WKS-000223:~$ docker image history ubuntu
+IMAGE          CREATED       CREATED BY                                      SIZE      COMMENT
+ca2b0f26964c   2 weeks ago   /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B
+<missing>      2 weeks ago   /bin/sh -c #(nop) ADD file:21c2e8d95909bec6f…   77.9MB
+<missing>      2 weeks ago   /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH     0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ARG RELEASE                  0B
+```
+
+`docker image inspect <image_name>`用于查看镜像的*metadata*，比如你可以查看到`nginx`镜像的默认监听端口，可以查看到镜像运行的*architecture*和OS
+
+---
+
+*image tag*: indicates branch + version, a pointer pointing to the specific image
+
+*image id*和*image tag*是一对多的关系
+
+unique organizational based image like `docker pull mysql/mysql-server`
+
+如果用两个不同的，指向同一个*image*的*tag*拉两次*image*，在`docker image ls`里能看到他们的哈希值相同
+```bash
+houze@IVT-WKS-000223:~$ docker image ls
+REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
+mongo           latest    79112eff9c89   2 weeks ago    756MB
+ubuntu          latest    ca2b0f26964c   2 weeks ago    77.9MB
+postgres        16        b9390dd1ea18   3 weeks ago    431MB
+postgres        latest    b9390dd1ea18   3 weeks ago    431MB
+```
+
+使用`docker image tag <source_image> <target_image>`来*retage*
+
+*latest*一般意味着*default image*
+
+如果你想将一个docker image checkout，你可以先retag它，然后docker push到你自己的docker hub账户下
+
+`docker login <server_name>`        用于登陆docker服务器
+在一台不信任的设备上完成操作后，记得`docker logout`
+
+### 5.2 Docker File
+
+- *docker file*: A recipe for creating your image
+- 每一个*docker file*中的操作都是一层*image layer*
+- 所以如果你不想创建太多*layers*，你可以用`&&`将多条shell语句封装成一个*layer*
+- 在容器中做日志的最方便的方法是将日志内容打到`/dev/stdout`和`/dev/stderr`，docker给容器们提供了相应的日志功能
+
+`docker build -f <specific_docker_file>`
+
+1. `FROM`: 从debian或者ubuntu进行构建的原因是可以很方便的使用这些操作系统的PM（package manager）
+2. `ENV`: 在container中设置环境变量的方法
+3. `EXPOSE`: 打开端口。docker默认不开任何端口，`EXPOSE`完毕后，在host中也需要使用`-p`选项进行端口映射
+4. `CMD`: run when container is launched
+
+---
+
+`docker build -t <tag_name_assigned> .`
+
+Things change less should be put on the top of the docker file, change more should be put on the tail of the docker file
+
+---
+
+`WORKDIR <path_to_move_to>`切换工作目录的最佳实践
+
+`COPY <host_file> <image_file>`将宿主机文件拷贝到容器中
+
+不一定总是需要`CMD`指令，因为它被包括在`FROM`字句中了
+
+---
+
+`docker image prune`
+`docker system prune`
+`docker image prune -a`
+`docker system df`
+
+What is the VM *auto-shrink*?
