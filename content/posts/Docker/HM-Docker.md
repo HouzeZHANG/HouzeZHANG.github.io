@@ -481,3 +481,261 @@ Things change less should be put on the top of the docker file, change more shou
 `docker system df`
 
 What is the VM *auto-shrink*?
+
+## Section 6 Persistent Data: Volumes
+
+*immutable infrastructure*: only re-deploy containers, never change it
+*ephemeral designed*
+*separation of concerns*: separate the unique data from container(like db)
+
+*UFS*: union file system
+
+Containers are persistent by default... Only remove them, their UFS layer will go away.
+
+*Auto-scaling application*'s solution:
+
+- *Volumes*: make special location outside of container UFS, 允许用户在移除容器的时候保留其上的unique数据，然后将其attach到其他容器上，对于container来说这是一个local file path
+- *Bind mount*: link container path to host path, 这个挂载对于container来说是transparent的
+
+### 6.1 Volumes
+
+```dockerfile
+# mysql
+VOLUME /var/lib/mysql
+```
+
+Volumes need manual deletion, you cannot clean them up just remove the container.
+这个volume操作的结果可以通过`docker image inspect mysql`来查看
+
+`docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True mysql`
+
+<?>
+`docker volume ls`                              查看所有的*卷*
+`docker volume inspect <volume_sha>`            查看容器希望使用的的*卷*位置
+
+Windows或者mac设备上做*volume*，这些数据会被放在虚拟机中，对于宿主机来说无法直接访问，这个限制可以通过mount volume来绕过这个限制
+
+有一个比较麻烦的事情是，*non-named-volume*对于容器来讲，是容易区分的，但是仅仅通过*non-named-volume*，我们无法识别该*volume*和哪个容器相关
+
+---
+
+*Named-volume*: `docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v [<name_of_volume>:]<path> mysql`
+
+BP: 用项目名字给数据库的volume进行命名
+
+<?>
+`docker volume create`
+
+---
+
+path expansion:
+- `${pwd}`  powershell
+- `%cd%`    cmd
+- `$(pwd)`  linux/macOS bash
+
+`docker container run -d --name nginx -p 80:80 -v $(pwd):/usr/share/nginx/html nginx`
+
+### 6.2 Bind Mounting
+
+- Having two locations pointing to the same location on the disk.
+- Doesn't require a volume to work.
+- Mapping a host file or directory to a container file or directory.
+- Skip UFS.
+- Bind mounting is host-specific so you cannot configure it in the *Dockerfile*.
+
+`... run -v /Users/bret/stuff:/path/container`          mac/linux
+`... run -v //Users/bret/stuff:/path/container`         windows
+
+挂载完毕后切入container检查效果
+`docker container exec -it nginx bash`
+
+Bind Mounting is used for local development and local testing.
+
+Before making a new volume in a docker run -v command for a MySQL container, where could you look to see where MySQL expects the data path to be?
+The answer is Docker Hub.
+
+### 6.3 Database Passwords in Containers
+
+We all know databases usually need passwords, but since the dawn of Docker, the postgres image (and a few others like redis) has allowed you to do a simple docker run on it and it starts without a password. Sure you could set a password but it didn't require one.
+
+In Feburary 2020 that changed, and will affect using postgres in this course (and my others). When running postgres now, you'll need to either set a password, or tell it to allow any connection (which was the default before this change).
+
+For docker run, and the forthcoming Docker Compose sections, you need to either set a password with the environment variable:
+
+`POSTGRES_PASSWORD=mypasswd`
+
+Or tell it to ignore passwords with the environment variable:
+
+`POSTGRES_HOST_AUTH_METHOD=trust`
+
+Note this change was in the Docker Hub image, and not a change in postgres itself.
+
+---
+
+### 6.4 Version Best Practice
+
+Also note if I or you were pinning versions, as we should, this wouldn't have surprised us. I tend to only pin to the minor version in this course (9.6) rather than the *patch version* (9.6.16) to keep you a bit more secure in the course. In the real world, **I always pin my production apps to the patch version. It's the only safe way to operate**. By pinning to the minor version in the courses, I prevent any major changes from breaking the course (in theory ha ha), yet also ensure you're running the latest patches (which would fix any bugs or security problems). In this, *very rare case*, the maintainer of the official postgres decided to introduce a breaking change in the *image* to a patch release of the app. <?>The two aren't related, and it kinda shows off a weakness of the Docker Hub model... that there is no version of the Docker Hub image really, it's just tracking the upstream postgres versions... so then if any Docker Hub change would break something, it can't easily be tracked as a separate version from the app itself. Oh well, just remember to always pin the whole image version for things you care about.
+
+I've updated the course repo files to indicate this change, but if you've cloned the repo before February 18th, 2020, you will need to update or replace your clone.
+
+### 6.5 Database upgrade: real-world scenario
+
+Major upgrade may require schema changes for the db.
+
+```bash
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/ans-db-1# docker container run -d --name pg1 -e POSTGRES_HOST_AUTH_METHOD=trust -v psql-data:/var/lib/postgresql/data postgres:9.6.1
+794bb1dba69249bf56cf7146968ea4f854df2bf858f24d36a6471c5d3cdd2cec
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/ans-db-1# docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS         PORTS      NAMES
+794bb1dba692   postgres:9.6.1   "/docker-entrypoint.…"   3 seconds ago   Up 2 seconds   5432/tcp   pg1
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/ans-db-1#  docker volume ls
+DRIVER    VOLUME NAME
+local     1b8edb5bebaade8c9208b219c497fc7b0719bc1754a1a60b066f57621ca78c54
+local     2c970b0cb77432298d951f75538e0abbacc621633bb17860f8c286b05d42e5ee
+local     9ac01f466044cfbc49d72cdebf6f1ecd14a8886bcb8f431fb028d0b85b05b5fd
+local     9eab4e05930a0fe4e1995f6658f7d607a414870ddf4e6e5578563316b1444612
+local     13b0ba6845faa610f5eed7f8dd8144d1d2befb0eaa9ce94667ab4f9ec47dd0b5
+local     71bc7c6b2ee7a4b796a1e73349c62e6ef9eaec5b8966e071fcfc9a1c7d92cbbc
+local     83ac79f371244f2f63da741b054fa6fdf18f71dca74a8bbfe1283422ff1d1843
+local     87cc86016a3d89e16372363b0bf5b5d5dbddb339918999e13fd06c667e83a93e
+local     506e581040675eb2a39835b532d4601067506ad22f7453f4b038fe156a02dad9
+local     4754bdd64e34596a470936b1a3513292b23f7b9af8c19b1eec8795013a3e8322
+local     8635e8650f912205128d12f102ee804fca2001fd39e3ff8faf1f08b19f25ed54
+local     a37ca698cf7dd3bd7226c33a1434298bd17c450972cee93df7b4e18484ba4dd3
+local     e1ea02aa457a8ffff3ac844624f8cbc4e94fef0a44bdd8a5103dac83f1de2128
+local     e9b91a86901fad7ec287ccec9cc5a3e1b588cd0fc931c7b7e36319a1f7c74c9f
+local     psql-data
+```
+
+在没有*volume*的情况下pg做的初始化日志
+
+```bash
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/ans-db-1# docker container logs 794bb1dba692
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.utf8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgresql/data ... ok
+creating subdirectories ... ok
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting dynamic shared memory implementation ... posix
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+
+WARNING: enabling "trust" authentication for local connections
+You can change this by editing pg_hba.conf or using the option -A, or
+--auth-local and --auth-host, the next time you run initdb.
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /var/lib/postgresql/data -l logfile start
+
+****************************************************
+WARNING: No password has been set for the database.
+         This will allow anyone with access to the
+         Postgres port to access your database. In
+         Docker's default configuration, this is
+         effectively any other container on the same
+         system.
+
+         Use "-e POSTGRES_PASSWORD=password" to set
+         it in "docker run".
+****************************************************
+waiting for server to start....LOG:  could not bind IPv6 socket: Cannot assign requested address
+HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+LOG:  database system was shut down at 2024-03-19 10:37:58 UTC
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ done
+server started
+ALTER ROLE
+
+
+/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+
+LOG:  received fast shutdown request
+waiting for server to shut down....LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+ done
+server stopped
+
+PostgreSQL init process complete; ready for start up.
+
+LOG:  database system was shut down at 2024-03-19 10:38:00 UTC
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+```
+
+shorter log printed by reusing volume
+
+```bash
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/ans-db-1# docker container run -d --name pg2 -e POSTGRES_HOST_AUTH_METHOD=trust -v psql-data:/var/lib/postgresql/data postgres:9.6.2
+58a5e9e9c978268ccdd613af8ff225aaa6ebded38f69ddca4c9e21fa8bcde2ab
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/ans-db-1# docker container logs
+ pg2
+LOG:  database system was shut down at 2024-03-19 10:40:52 UTC
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/ans-db-1#
+```
+
+### 6.6 <?> File Permissions Across Multiple Containers
+
+At some point you'll have file permissions problems with container apps not having the permissions they need. Maybe you want multiple containers to access the same volume(s). Or maybe you're bind-mounting existing files into a container.
+
+Note that the below info is about pure Linux hosts, like production server setups. If you're using Docker Desktop locally, it will translate permissions from your host (macOS & Windows) into the container (Linux) automatically, but when working on pure Linux servers with just dockerd, no translation is made.
+
+#### How file permissions work across multiple containers accessing the same volume or bind-mount
+
+File ownership between containers and the host are just **numbers**. They stay consistent no matter how you run them. Sometimes you see friendly user names in commands like ls but those are just name-to-number aliases that you'll see in `/etc/passwd` and `/etc/group`. Your host has those files, and usually, your containers will have their own. They are usually different. These files are really just for humans to see friendly names. **The Linux Kernel only cares about IDs**, which are attached to each file and directory in the file system itself, and those IDs are the same no matter which process accesses them.
+
+When a container is just accessing its own files, this isn't usually an issue.
+
+But for multiple containers accessing the same volume or bind-mount, problems can arise in two ways:
+
+1. Problem one: The `/etc/passwd` is different across containers. Creating a named user in one container and running as that user may use ID 700, but that same name in another container with a different `/etc/passwd` may use a different ID for that same username. That's why I only care about IDs when trying to sync up permissions. You'll see this confusion if you're running a container on a Linux VM and it had a volume or bind-mount. If you do an ls on those files from the host, it may show them owned by ubuntu or node or systemd, etc. Then if you run ls inside the container, it may show a different friendly username. The IDs are the same in both cases, but the host will have a different passwd file than the container, and show you different friendly names. Different names are fine, because it's only ID that counts. Two processes trying to access the same file must have a matching user ID or group ID.
+
+2. Problem two: Your two containers are running as different users. Maybe the user/group IDs and/or the USER statement in your Dockerfiles are different, and the two containers are technically running under different IDs. Different apps will end up running as different IDs. For example, the node base image creates a user called node with ID of 1000, but the NGINX image creates an nginx user as ID 101. Also, some apps spin-off sub-processes as different users. NGINX starts its main process (PID 1) as root (ID 0) but spawns sub-processes as the nginx user (ID 101), which keeps it more secure.
+
+So for troubleshooting, this is what I do:
+Use the command ps aux in each container to see a list of processes and usernames. The process needs a matching user ID or group ID to access the files in question.
+
+Find the UID/GID in each containers `/etc/passwd` and `/etc/group` to translate names to numbers. You'll likely find there a miss-match, where one containers process originally wrote the files with its UID/GID and the other containers process is running as a different UID/GID.
+
+Figure out a way to ensure both containers are running with either a matching user ID or group ID. This is often easier to manage in your own custom app (when using a language base image like python or node) rather than trying to change a 3rd party app's container (like nginx or postgres)... but it all depends. This may mean creating a new user in one Dockerfile and setting the startup user with USER. (see USER docs) The node default image has a good example of the commands for creating a user and group with hard-coded IDs:
+
+RUN groupadd --gid 1000 node \\
+        && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
+USER 1000:1000
+Note: When setting a Dockerfile's USER, use numbers, which work better in Kubernetes than using names.
+
+Note 2: If ps doesn't work in your container, you may need to install it. In debian-based images with apt, you can add it with apt-get update && apt-get install procps
+
+### 6.7 Bind Mounts with JekyII
+
+Changes can be *Reflecting* on the container
+
+*Static site generator*: SSG
+
+<?>
+`root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/bindmount-sample-1# docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve`
+
+## 7 Docker Compose
+
+*Relationship between containers*
+*Save docker run settings in easy-to-read file*
+*YAML-formatted file*
+*CLI tool docker-compose* used for local dev/test automation
