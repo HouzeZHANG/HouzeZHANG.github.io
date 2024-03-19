@@ -470,6 +470,7 @@ Things change less should be put on the top of the docker file, change more shou
 `WORKDIR <path_to_move_to>`切换工作目录的最佳实践
 
 `COPY <host_file> <image_file>`将宿主机文件拷贝到容器中
+BP: 如果只想单次修改，建议使用`COPY`，如果希望持续同步，建议使用*bind mounting*
 
 不一定总是需要`CMD`指令，因为它被包括在`FROM`字句中了
 
@@ -481,6 +482,138 @@ Things change less should be put on the top of the docker file, change more shou
 `docker system df`
 
 What is the VM *auto-shrink*?
+
+```Dockerfile
+# NOTE: this example is taken from the default Dockerfile for the official nginx Docker Hub Repo
+# https://hub.docker.com/_/nginx/
+# NOTE: This file is slightly different than the video, because nginx versions have been updated 
+#       to match the latest standards from docker hub... but it's doing the same thing as the video
+#       describes
+
+FROM debian:bookworm-slim
+# all images must have a FROM
+# usually from a minimal Linux distribution like debian or (even better) alpine
+# if you truly want to start with an empty container, use FROM scratch
+
+LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
+
+# optional environment variable that's used in later lines and set as envvar when container is running
+ENV NGINX_VERSION   1.25.3
+ENV NJS_VERSION     0.8.2
+ENV PKG_RELEASE     1~bookworm
+
+
+RUN set -x \
+# create nginx user/group first, to be consistent throughout docker variants
+    && groupadd --system --gid 101 nginx \
+    && useradd --system --gid nginx --no-create-home --home /nonexistent --comment "nginx user" --shell /bin/false --uid 101 nginx \
+    && apt-get update \
+    && apt-get install --no-install-recommends --no-install-suggests -y gnupg1 ca-certificates \
+    && \
+    NGINX_GPGKEY=573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62; \
+    NGINX_GPGKEY_PATH=/usr/share/keyrings/nginx-archive-keyring.gpg; \
+    export GNUPGHOME="$(mktemp -d)"; \
+    found=''; \
+    for server in \
+        hkp://keyserver.ubuntu.com:80 \
+        pgp.mit.edu \
+    ; do \
+        echo "Fetching GPG key $NGINX_GPGKEY from $server"; \
+        gpg1 --keyserver "$server" --keyserver-options timeout=10 --recv-keys "$NGINX_GPGKEY" && found=yes && break; \
+    done; \
+    test -z "$found" && echo >&2 "error: failed to fetch GPG key $NGINX_GPGKEY" && exit 1; \
+    gpg1 --export "$NGINX_GPGKEY" > "$NGINX_GPGKEY_PATH" ; \
+    rm -rf "$GNUPGHOME"; \
+    apt-get remove --purge --auto-remove -y gnupg1 && rm -rf /var/lib/apt/lists/* \
+    && dpkgArch="$(dpkg --print-architecture)" \
+    && nginxPackages=" \
+        nginx=${NGINX_VERSION}-${PKG_RELEASE} \
+        nginx-module-xslt=${NGINX_VERSION}-${PKG_RELEASE} \
+        nginx-module-geoip=${NGINX_VERSION}-${PKG_RELEASE} \
+        nginx-module-image-filter=${NGINX_VERSION}-${PKG_RELEASE} \
+        nginx-module-njs=${NGINX_VERSION}+${NJS_VERSION}-${PKG_RELEASE} \
+    " \
+    && case "$dpkgArch" in \
+        amd64|arm64) \
+# arches officialy built by upstream
+            echo "deb [signed-by=$NGINX_GPGKEY_PATH] https://nginx.org/packages/mainline/debian/ bookworm nginx" >> /etc/apt/sources.list.d/nginx.list \
+            && apt-get update \
+            ;; \
+        *) \
+# we're on an architecture upstream doesn't officially build for
+# let's build binaries from the published source packages
+            echo "deb-src [signed-by=$NGINX_GPGKEY_PATH] https://nginx.org/packages/mainline/debian/ bookworm nginx" >> /etc/apt/sources.list.d/nginx.list \
+            \
+# new directory for storing sources and .deb files
+            && tempDir="$(mktemp -d)" \
+            && chmod 777 "$tempDir" \
+# (777 to ensure APT's "_apt" user can access it too)
+            \
+# save list of currently-installed packages so build dependencies can be cleanly removed later
+            && savedAptMark="$(apt-mark showmanual)" \
+            \
+# build .deb files from upstream's source packages (which are verified by apt-get)
+            && apt-get update \
+            && apt-get build-dep -y $nginxPackages \
+            && ( \
+                cd "$tempDir" \
+                && DEB_BUILD_OPTIONS="nocheck parallel=$(nproc)" \
+                    apt-get source --compile $nginxPackages \
+            ) \
+# we don't remove APT lists here because they get re-downloaded and removed later
+            \
+# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+# (which is done after we install the built packages so we don't have to redownload any overlapping dependencies)
+            && apt-mark showmanual | xargs apt-mark auto > /dev/null \
+            && { [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark; } \
+            \
+# create a temporary local APT repo to install from (so that dependency resolution can be handled by APT, as it should be)
+            && ls -lAFh "$tempDir" \
+            && ( cd "$tempDir" && dpkg-scanpackages . > Packages ) \
+            && grep '^Package: ' "$tempDir/Packages" \
+            && echo "deb [ trusted=yes ] file://$tempDir ./" > /etc/apt/sources.list.d/temp.list \
+# work around the following APT issue by using "Acquire::GzipIndexes=false" (overriding "/etc/apt/apt.conf.d/docker-gzip-indexes")
+#   Could not open file /var/lib/apt/lists/partial/_tmp_tmp.ODWljpQfkE_._Packages - open (13: Permission denied)
+#   ...
+#   E: Failed to fetch store:/var/lib/apt/lists/partial/_tmp_tmp.ODWljpQfkE_._Packages  Could not open file /var/lib/apt/lists/partial/_tmp_tmp.ODWljpQfkE_._Packages - open (13: Permission denied)
+            && apt-get -o Acquire::GzipIndexes=false update \
+            ;; \
+    esac \
+    \
+    && apt-get install --no-install-recommends --no-install-suggests -y \
+                        $nginxPackages \
+                        gettext-base \
+                        curl \
+    && apt-get remove --purge --auto-remove -y && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/nginx.list \
+    \
+# if we have leftovers from building, let's purge them (including extra, unnecessary build deps)
+    && if [ -n "$tempDir" ]; then \
+        apt-get purge -y --auto-remove \
+        && rm -rf "$tempDir" /etc/apt/sources.list.d/temp.list; \
+    fi \
+# forward request and error logs to docker log collector
+    && ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log \
+# create a docker-entrypoint.d directory
+    && mkdir /docker-entrypoint.d
+
+# COPY docker-entrypoint.sh /
+# COPY 10-listen-on-ipv6-by-default.sh /docker-entrypoint.d
+# COPY 20-envsubst-on-templates.sh /docker-entrypoint.d
+# COPY 30-tune-worker-processes.sh /docker-entrypoint.d
+# ENTRYPOINT ["/docker-entrypoint.sh"]
+
+EXPOSE 80
+# expose these ports on the docker virtual network
+# you still need to use -p or -P to open/forward these ports on host
+
+STOPSIGNAL SIGQUIT
+
+CMD ["nginx", "-g", "daemon off;"]
+# required: run this command when container is launched
+# only one CMD allowed, so if there are multiple, last one wins
+
+```
 
 ## Section 6 Persistent Data: Volumes
 
@@ -739,3 +872,235 @@ Changes can be *Reflecting* on the container
 *Save docker run settings in easy-to-read file*
 *YAML-formatted file*
 *CLI tool docker-compose* used for local dev/test automation
+
+docker compose file
+
+- has version
+Version 2 and above provide significantly more features then the old default version 1, and what we will be using as a default base for this course. Bonus Note: v2.x is actually better for local docker-compose use, and v3.x is better for use in server clusters (Swarm and Kubernetes)
+- `.yml` file can be used with `docker-compose` command for local docker automation
+- has filename, `docker-compose.yml` is just a default name, use `docker-compose -f` to specify file name
+- use service name as DNS name
+services, volumes and networks
+
+services下面的服务名称会成为DNS name
+The bridge network is created at runtime by default so the containers can communicate with one another across it.
+
+```yml
+# version isn't needed as of 2020 for docker compose CLI.
+# All 2.x and 3.x features supported
+# version: '2'
+
+services:
+
+  wordpress:
+    image: wordpress
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: example
+      WORDPRESS_DB_PASSWORD: examplePW
+    volumes:
+      - ./wordpress-data:/var/www/html
+
+  mysql:
+    # we use mariadb here for arm support
+    # mariadb is a fork of MySQL that's often faster and better multi-platform
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: examplerootPW
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: example
+      MYSQL_PASSWORD: examplePW
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+```
+
+```yml
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/compose-sample-1# cat compose-3.yml
+version: '3.9'
+# NOTE: This example only works on x86_64 (amd64)
+# Percona doesn't yet publish arm64 (Apple Silicon M1) or arm/v7 (Raspberry Pi 32-bit) images
+
+services:
+  ghost:
+    image: ghost
+    ports:
+      - "80:2368"
+    environment:
+      - URL=http://localhost
+      - NODE_ENV=production
+      - MYSQL_HOST=mysql-primary
+      - MYSQL_PASSWORD=mypass
+      - MYSQL_DATABASE=ghost
+    volumes:
+      - ./config.js:/var/lib/ghost/config.js
+    depends_on:
+      - mysql-primary
+      - mysql-secondary
+  proxysql:
+    # image only works on x86_64 (amd64)
+    image: percona/proxysql
+    environment:
+      - CLUSTER_NAME=mycluster
+      - CLUSTER_JOIN=mysql-primary,mysql-secondary
+      - MYSQL_ROOT_PASSWORD=mypass
+
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+  mysql-primary:
+    # image only works on x86_64 (amd64)
+    image: percona/percona-xtradb-cluster:5.7
+    environment:
+      - CLUSTER_NAME=mycluster
+      - MYSQL_ROOT_PASSWORD=mypass
+      - MYSQL_DATABASE=ghost
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+  mysql-secondary:
+    # image only works on x86_64 (amd64)
+    image: percona/percona-xtradb-cluster:5.7
+    environment:
+      - CLUSTER_NAME=mycluster
+      - MYSQL_ROOT_PASSWORD=mypass
+
+      - CLUSTER_JOIN=mysql-primary
+      - MYSQL_PROXY_USER=proxyuser
+      - MYSQL_PROXY_PASSWORD=s3cret
+    
+    # depends_on表明容器之间的依赖关系
+    depends_on:
+      - mysql-primary
+```
+
+2022年docker compose V2问世
+
+### 7.1 Docker Compose Commands
+
+Not a production-grade tool but ideal for local development and test
+
+`docker compose up -d`          后台运行
+`docker compose down`
+`docker compose down -v`        clean up the containers
+`docker compose down --rmi`     remove images
+
+`docker compose logs`
+`docker compose ps`
+`docker compose top`
+
+反向代理nginx服务器+阿帕奇服务器
+
+```yml
+root@IVT-WKS-000223:/mnt/c/Documents and Settings/hzhang3/Documents/udemy-docker-mastery/compose-sample-2# cat docker-compose.yml
+# version isn't needed as of 2020 for docker compose CLI.
+# All 2.x and 3.x features supported
+#version: '3.9'
+
+services:
+  proxy:
+    image: nginx:1.23 # this will use the latest version of 1.23
+    ports:
+      # NOTE: if port 80 is already in use on your host, this won't work
+      # in that case, change to any high port, like '8000:80'
+      # and then use http://localhost:8000 to access the proxy
+      - '80:80' # expose 80 on host and sent to 80 in container
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  web:
+    image: httpd:2  # this will use the latest apache v2
+```
+
+> When building your Dockerfile and docker-compose.yml file, remember that you'll need to check the compatible versions in that apps documentation.
+
+### 7.2 Assignment1
+
+```yml
+# version isn't needed as of 2020 for docker compose CLI. 
+# All 2.x and 3.x features supported
+# version: '2'
+
+services:
+  drupal:
+    image: drupal:9
+    ports:
+      - "8080:80"
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles       
+      - drupal-sites:/var/www/html/sites      
+      - drupal-themes:/var/www/html/themes
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=mypasswd
+
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
+```
+
+### 7.3 Use Special Docker File
+
+会先检查本地cache中是否保存有名为`nginx-custom`的镜像，如果没有，则会通过`nginx.Dockerfile`这个文件构建
+
+如果你想重新构建，则需要使用`docker compose build`
+
+如果不在yml文件中添加image选项，则docker会默认在image前根据工作路径进行命名，如果想要自动化删除，则需要运行`docker compose down --rmi <local>`指令，这会自动删除全部的本地镜像
+
+```yml
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    image: nginx-custom
+    ports:
+      - '80:80'
+  web:
+    image: httpd
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+```
+
+### 7.4 Assignment2
+
+```yml
+# version isn't needed as of 2020 for docker compose CLI. 
+# All 2.x and 3.x features supported
+# version: '2'
+
+services:
+  drupal:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: constum-drupal
+    ports:
+      - "8080:80"
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles       
+      - drupal-sites:/var/www/html/sites      
+      - drupal-themes:/var/www/html/themes
+      - drupal-data:/var/lib/postgresql/data
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=mypasswd
+    volumes:
+      - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
+  drupal-data:
+  drupal-data:
+```
