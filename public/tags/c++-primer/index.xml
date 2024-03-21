@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; Primer on Zane_ZHANG</title>
+    <link>http://example.org/tags/c&#43;&#43;-primer/</link>
+    <description>Recent content in C&#43;&#43; Primer on Zane_ZHANG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>houze.zhang@etu.utc.fr (Zane_ZHANG)</managingEditor>
+    <webMaster>houze.zhang@etu.utc.fr (Zane_ZHANG)</webMaster>
+    <lastBuildDate>Wed, 05 Jul 2023 15:17:12 +0200</lastBuildDate><atom:link href="http://example.org/tags/c++-primer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Type Conversion</title>
+      <link>http://example.org/posts/cpp/type-conversion/</link>
+      <pubDate>Wed, 05 Jul 2023 15:17:12 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/posts/cpp/type-conversion/</guid>
+      <description>Background This post is excerpted from the 2.1.2 section of C++primer and contains the parts I think are important as well as my comments. The answers to the practice questions in subsection 2.1.2 are included.
+Highlights The type of an object defines the data that an object might contain and what operations that object can perform. Among the operations that many types support is the ability to convert objects of the given type to other, related types.</description>
+    </item>
+    
+  </channel>
+</rss>

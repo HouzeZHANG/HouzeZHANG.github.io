@@ -4,7 +4,7 @@ baseURL = "http://example.org/"
 theme = "LoveIt"
 
 # website title
-title = "Zane_ZHANG"
+title = "Houze ZHANG's blog"
 
 # language code ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "en"
@@ -13,8 +13,8 @@ languageName = "English"
 
 # Author config
 [author]
-  name = "Zane_ZHANG"
-  email = "houze.zhang@etu.utc.fr"
+  name = "Houze ZHANG"
+  email = "houze.zhang@outlook.com"
   link = ""
 
 # Menu config
@@ -55,7 +55,7 @@ languageName = "English"
     noClasses = false
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
-title = 'Blog of Zane_ZHANG'
+title = 'Blog of Houze ZHANG'
 theme = 'ananke'
 [related]
   includeNewer = false

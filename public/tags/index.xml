@@ -1,55 +1,49 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Tags - Tag - My New Hugo Site</title>
-        <link>http://example.org/tags/</link>
-        <description>Tags - Tag - My New Hugo Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>Architecture</title>
-    <link>http://example.org/tags/architecture/</link>
-    <pubDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/tags/architecture/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>CMU 15-213</title>
-    <link>http://example.org/tags/cmu-15-213/</link>
-    <pubDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/tags/cmu-15-213/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Self learn</title>
-    <link>http://example.org/tags/self-learn/</link>
-    <pubDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/tags/self-learn/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>CMU 15-445</title>
-    <link>http://example.org/tags/cmu-15-445/</link>
-    <pubDate>Sun, 02 Jul 2023 15:38:35 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/tags/cmu-15-445/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Database</title>
-    <link>http://example.org/tags/database/</link>
-    <pubDate>Sun, 02 Jul 2023 15:38:35 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/tags/database/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>C&#43;&#43;</title>
-    <link>http://example.org/tags/c&#43;&#43;/</link>
-    <pubDate>Sun, 02 Jul 2023 15:24:50 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/tags/c&#43;&#43;/</guid>
-    <description><![CDATA[]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Zane_ZHANG</title>
+    <link>http://example.org/tags/</link>
+    <description>Recent content in Tags on Zane_ZHANG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>houze.zhang@etu.utc.fr (Zane_ZHANG)</managingEditor>
+    <webMaster>houze.zhang@etu.utc.fr (Zane_ZHANG)</webMaster>
+    <lastBuildDate>Wed, 05 Jul 2023 15:17:12 +0200</lastBuildDate><atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>http://example.org/tags/c&#43;&#43;/</link>
+      <pubDate>Wed, 05 Jul 2023 15:17:12 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Primer</title>
+      <link>http://example.org/tags/c&#43;&#43;-primer/</link>
+      <pubDate>Wed, 05 Jul 2023 15:17:12 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/tags/c&#43;&#43;-primer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CMU-15445</title>
+      <link>http://example.org/tags/cmu-15445/</link>
+      <pubDate>Tue, 04 Jul 2023 13:02:54 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/tags/cmu-15445/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gdb</title>
+      <link>http://example.org/tags/gdb/</link>
+      <pubDate>Tue, 04 Jul 2023 13:02:54 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/tags/gdb/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
 </rss>

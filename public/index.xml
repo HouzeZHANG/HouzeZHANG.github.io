@@ -1,36 +1,54 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>My New Hugo Site</title>
-        <link>http://example.org/</link>
-        <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</lastBuildDate>
-            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
-        <item>
-    <title>Computer Systems A Programmer&#39;s Perspective [Note 1]</title>
-    <link>http://example.org/posts/csapp-note-1/</link>
-    <pubDate>Sun, 02 Jul 2023 20:02:02 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/posts/csapp-note-1/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Database System Concepts Note 1</title>
-    <link>http://example.org/posts/dbsc-notes-1/</link>
-    <pubDate>Sun, 02 Jul 2023 15:38:35 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/posts/dbsc-notes-1/</guid>
-    <description><![CDATA[Remark This blog series share and document interesting points of knowledge and reflections that I noticed while studying the textbook Database System Concepts (7th Edition). This blog is the first chapter of this blog series.
-Data Abstraction View level. The highest level of abstraction describes only part of the entire database. Even though the logical level uses simpler structures, complexity remains because of the variety of information stored in a large database.]]></description>
-</item>
-<item>
-    <title>Access Control in Cplusplus</title>
-    <link>http://example.org/posts/access-control-in-cplusplus/</link>
-    <pubDate>Sun, 02 Jul 2023 15:24:50 &#43;0200</pubDate>
-    <author>xxxx</author>
-    <guid>http://example.org/posts/access-control-in-cplusplus/</guid>
-    <description><![CDATA[Background C++ provides programmers with a powerful set of access control modifiers, today I&rsquo;ll talk about private, public and protected with three different types of inheritance in C++.
-Before I start, I&rsquo;d like to thank Antoine JOUGLET of UTC and his LO21 course for helping me sort out these concepts.
-Why access control? 访问控制符需要解决的问题？]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zane_ZHANG</title>
+    <link>http://example.org/</link>
+    <description>Recent content on Zane_ZHANG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>houze.zhang@etu.utc.fr (Zane_ZHANG)</managingEditor>
+    <webMaster>houze.zhang@etu.utc.fr (Zane_ZHANG)</webMaster>
+    <lastBuildDate>Wed, 05 Jul 2023 15:17:12 +0200</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Type Conversion</title>
+      <link>http://example.org/posts/cpp/type-conversion/</link>
+      <pubDate>Wed, 05 Jul 2023 15:17:12 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/posts/cpp/type-conversion/</guid>
+      <description>Background This post is excerpted from the 2.1.2 section of C++primer and contains the parts I think are important as well as my comments. The answers to the practice questions in subsection 2.1.2 are included.
+Highlights The type of an object defines the data that an object might contain and what operations that object can perform. Among the operations that many types support is the ability to convert objects of the given type to other, related types.</description>
+    </item>
+    
+    <item>
+      <title>Varying Parameters in C&#43;&#43;</title>
+      <link>http://example.org/posts/cpp/varying-parameters-in-c&#43;&#43;/</link>
+      <pubDate>Tue, 04 Jul 2023 23:47:17 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/posts/cpp/varying-parameters-in-c&#43;&#43;/</guid>
+      <description>Background There are three methods to implement varying parameters in C++. This post will summarize those three methods, and giving my solutions to related exercise in [1].
+initializer_list Some notes on using initializer_list：
+Using for loop to iterate initializer_list object Elements should be the same type in initializer_list Which is a template library type Elements are always const in initializer_list When copy initializer_list objects, the elements underlayer will not be copied.</description>
+    </item>
+    
+    <item>
+      <title>Hands-on gdb</title>
+      <link>http://example.org/posts/gdb-commands-collection/hands-on-gdb/</link>
+      <pubDate>Tue, 04 Jul 2023 13:02:54 +0200</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/posts/gdb-commands-collection/hands-on-gdb/</guid>
+      <description>Background I read this blog when I was doing CMU15445-Project0, mainly providing a hands-on way to learn gdb. This post is a brief summary for this blog, appending my bug-free code for the example source code.
+Highlights gdb [prog_name] is used to load program waited to be debugged into gdb. In the gdb prompt, we can run prog or quit gdb. break [function name] will set breakpoint at certain function.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/posts/docker/hm-docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>houze.zhang@etu.utc.fr (Zane_ZHANG)</author>
+      <guid>http://example.org/posts/docker/hm-docker/</guid>
+      <description>Docker image Docker container Docker registry
+1. Introduction CNCF is cloud native computing foundation Container image: a universal app packager Cross platform Docker file OCI is an image standard Stacking up the layers Image registry &amp;amp; app distribution (Docker hub) Sha hash is generated by the image we build docker container docker engine 一层虚拟化层，如果不开这个engine，wsl中就无法使用docker root@IVT-WKS-000223:~# docker The command &amp;#39;docker&amp;#39; could not be found in this WSL 2 distro. We recommend to activate the WSL integration in Docker Desktop settings.</description>
+    </item>
+    
+  </channel>
 </rss>
