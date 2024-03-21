@@ -2,12 +2,12 @@
 title: "Atomicity, State of File Descriptor and OS's Three File Tables"
 date: 2024-03-21T13:33:44Z
 draft: false
-tags: ["System Programming", "IO"]
+tags: ["System Programming"]
 ---
 
 The *atomicity* of *system call* is crucial as it is a **prerequisite** for the correct execution of system calls. The term *race Condition* implies that the outcome of concurrent program execution depends on the scheduling order of processors. Robust programs should **avoid** race conditions. Here are two examples of race condition: 1. checking if a file exists - creating a file; 2. multiple processes (threads) concurrently writing to the same file.
 
-When using `open()` system call to create a file with `O_CREAT | O_EXCL` flags can make checking if the file exists and file creation a **combined** atomic operation. Concurrent writes using `lseek()` + `write()` implementation can lead to a race condition because the combination of these two operations is not atomic and should be replaced with `write()` with `O_APPEND` flag. Using `pwrite()` and `pread()` is also a good approach, these two IO operations are atomic and will **reset** the *file offset* to its value as before the system call. Those two system call have **less overhead** than resetting the offset after `write()` using `lseek()`, making them a good tool for concurrent programming.
+When using `open()` system call to create a file with `O_CREAT | O_EXCL` flags can make checking if the file exists and file creation a **combined** atomic operation. Concurrent writes using `lseek()` + `write()` implementation can lead to a race condition because the combination of these two operations is not atomic and should be replaced with `write()` with `O_APPEND` flag. Using `pwrite()` and `pread()` is also a good approach, these two I/O operations are atomic and will **reset** the *file offset* to its value as before the system call. Those two system call have **less overhead** than resetting the offset after `write()` using `lseek()`, making them a good tool for concurrent programming.
 
 <!-- {{ $image := .Resources.Get "image.png" }} -->
 ![](/image.png)
@@ -26,7 +26,7 @@ When a file is opened twice by the same process or opened by different processes
 
 *System call*的原子性是重要的，他是系统调用被正确执行的先决条件。*Race Condition*的含义是并发程序的执行结果取决于处理器的调度顺序。健壮的程序应该避免*Race condition*。*Race condition*的两个例子：检测文件是否存在-创建文件；多进程（线程）通过设置偏移量并发写同一个文件。
 
-在使用`open()`系统调用创建文件的时候，使用`O_CREAT | O_EXCL`能将检查文件是否存在和文件创建变成一个原子操作。并发写使用`lseek()`+`write()`实现会造成race condition，因为这两个操作不是原子的，需要替换成`write()` with `O_APPEND` *flag*。使用`pwrite()`以及`pread()`也是一个好方法，这两个IO操作是原子的，且在完成后会把文件偏移量重置为调用前的值，其时间开销比`write()`后用`lseek()`重置*offset*小，是并发编程的好帮手。
+在使用`open()`系统调用创建文件的时候，使用`O_CREAT | O_EXCL`能将检查文件是否存在和文件创建变成一个原子操作。并发写使用`lseek()`+`write()`实现会造成race condition，因为这两个操作不是原子的，需要替换成`write()` with `O_APPEND` *flag*。使用`pwrite()`以及`pread()`也是一个好方法，这两个I/O操作是原子的，且在完成后会把文件偏移量重置为调用前的值，其时间开销比`write()`后用`lseek()`重置*offset*小，是并发编程的好帮手。
 
 `fcntl()`系统调用用于修改打开文件描述符的状态，在以下两种情况下很有用：1    . 该文件描述符的创建者不是caller。2. 不是由`open()`系统调用返回的文件描述符（比如*socket*）。
 
