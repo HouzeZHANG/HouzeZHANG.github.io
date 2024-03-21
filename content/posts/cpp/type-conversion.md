@@ -2,7 +2,7 @@
 title: "Type Conversion"
 date: 2023-07-05T15:17:12+02:00
 draft: false
-tags: ["C++", "C++ Primer"]
+tags: ["C++"]
 ---
 
 ### Background

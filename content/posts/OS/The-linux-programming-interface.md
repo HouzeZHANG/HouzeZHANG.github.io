@@ -1,3 +1,10 @@
+---
+title: "Linux Programming Interface Chapter14"
+date: 2023-07-02T15:24:50+02:00
+draft: true
+tags: ["OS"]
+---
+
 # System Programming Concepts
 
 “Whenever we make a system call or call a library function, we should always check the return status of the call in order to determine if it was successful.” ([Kerrisk, 2010, p. 43](zotero://select/library/items/CW77TP4Y)) ([pdf](zotero://open-pdf/library/items/P9T2JPZU?page=87&annotation=3WKQUCWC))
