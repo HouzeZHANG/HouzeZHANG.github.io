@@ -5,21 +5,22 @@ draft: false
 tags: ["System Programming", "IO"]
 ---
 
-The *atomicity* of a *system call* is crucial as it is a prerequisite for the correct execution of system calls. The term *race Condition* implies that the outcome of concurrent program execution depends on the scheduling order of processors. Robust programs should avoid race conditions. Two examples of race condition: checking if a file exists - creating a file; multiple processes (threads) concurrently writing to the same file.
+The *atomicity* of *system call* is crucial as it is a **prerequisite** for the correct execution of system calls. The term *race Condition* implies that the outcome of concurrent program execution depends on the scheduling order of processors. Robust programs should **avoid** race conditions. Here are two examples of race condition: 1. checking if a file exists - creating a file; 2. multiple processes (threads) concurrently writing to the same file.
 
-When using the `open()` system call to create a file, using `O_CREAT | O_EXCL` can make checking if the file exists and file creation an atomic operation. Concurrent writes using `lseek()` + `write()` implementation can lead to a race condition because these two operations are not atomic and should be replaced with `write()` with `O_APPEND` flag. Using `pwrite()` and `pread()` is also a good approach; these two IO operations are atomic and reset the file offset to its value before the call, with less overhead than resetting the offset after `write()` using `lseek()`, making them a good tool for concurrent programming.
+When using `open()` system call to create a file with `O_CREAT | O_EXCL` flags can make checking if the file exists and file creation a **combined** atomic operation. Concurrent writes using `lseek()` + `write()` implementation can lead to a race condition because the combination of these two operations is not atomic and should be replaced with `write()` with `O_APPEND` flag. Using `pwrite()` and `pread()` is also a good approach, these two IO operations are atomic and will **reset** the *file offset* to its value as before the system call. Those two system call have **less overhead** than resetting the offset after `write()` using `lseek()`, making them a good tool for concurrent programming.
 
 <!-- {{ $image := .Resources.Get "image.png" }} -->
 ![](/image.png)
 
-`fcntl()` system call is used to modify the state of an open file descriptor and is useful in the following two cases: 1. The creator of the file descriptor is not the caller. 2. It is not a file descriptor returned by the `open()` system call (such as a *socket*).
+`fcntl()` system call is used to **modify** the *state of an open file descriptor* and is useful in the following two cases: 1. The creator of the file descriptor is not the caller. 2. It is not a file descriptor returned by the `open()` system call (when using *socket*).
 
-The relationship between file descriptors and *i-nodes* is described by three tables of the OS: *Per-process file descriptor table*, *System-wide open file descriptors table*, *File system i-node table*. The *i-node* table stores different information in memory and on non-volatile disk.
+The relationship between *file descriptors* and *i-nodes* is described by three tables of the OS: *per-process file descriptor table*, *system-wide open file descriptors table*, *file system i-node table*. The i-node table stores different information in memory and on non-volatile disk at the same time.
 
 <!-- {{ $image := .Resources.Get "image-1.png" }} -->
-![](/image-1.png)
 
 When a file is opened twice by the same process or opened by different processes, using *dup()*, *fork()*, and other system calls can lead to shared records or shared *i-node* table entries, and sharing of the *open file table* results in shared offsets. Changes in *open file status flags* are also related to it.
+
+![](/image-1.png)
 
 ---
 
