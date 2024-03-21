@@ -1,5 +1,5 @@
 ---
-title: "Linux Programming Interface Chapter 5 FileIO Further Details"
+title: "Atomicity, State of File Descriptor and OS's Three File Tables"
 date: 2024-03-21T13:33:44Z
 draft: false
 tags: ["System Programming", "IO"]
