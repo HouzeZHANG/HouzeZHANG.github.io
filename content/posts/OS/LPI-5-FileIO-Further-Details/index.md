@@ -12,6 +12,8 @@ When using `open()` system call to create a file with `O_CREAT | O_EXCL` flags c
 <!-- {{ $image := .Resources.Get "image.png" }} -->
 ![](/image.png)
 
+“Figure 5-1: Failing to exclusively create a file” ([Kerrisk, 2010, p. 91](zotero://select/library/items/CW77TP4Y)) ([pdf](zotero://open-pdf/library/items/P9T2JPZU?page=135&annotation=B92C6YQB))
+
 `fcntl()` system call is used to **modify** the *state of an open file descriptor* and is useful in the following two cases: 1. The creator of the file descriptor is not the caller. 2. It is not a file descriptor returned by the `open()` system call (when using *socket*).
 
 The relationship between *file descriptors* and *i-nodes* is described by three tables of the OS: *per-process file descriptor table*, *system-wide open file descriptors table*, *file system i-node table*. The i-node table stores different information in memory and on non-volatile disk at the same time.
@@ -21,6 +23,8 @@ The relationship between *file descriptors* and *i-nodes* is described by three 
 When a file is opened twice by the same process or opened by different processes, using *dup()*, *fork()*, and other system calls can lead to shared records or shared *i-node* table entries, and sharing of the *open file table* results in shared offsets. Changes in *open file status flags* are also related to it.
 
 ![](/image-1.png)
+
+“Figure 5-2: Relationship between file descriptors, open file descriptions, and i-nodes” ([Kerrisk, 2010, p. 95](zotero://select/library/items/CW77TP4Y)) ([pdf](zotero://open-pdf/library/items/P9T2JPZU?page=139&annotation=RERAJWTE))
 
 ---
 
