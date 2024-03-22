@@ -11,6 +11,8 @@ languageCode = "en"
 # language name ["English", "简体中文", "Français", "Polski", ...]
 languageName = "English"
 
+paginate = 12
+
 # Author config
 [author]
   name = "Houze ZHANG"
@@ -38,14 +40,8 @@ languageName = "English"
     name = "Tags"
     url = "/tags/"
     title = ""
-  [[menu.main]]
-    weight = 3
-    identifier = "categories"
-    pre = ""
-    post = ""
-    name = "Categories"
-    url = "/categories/"
-    title = ""
+
+
 
 # Markup related configuration in Hugo
 [markup]
@@ -67,3 +63,19 @@ theme = 'ananke'
 [[related.indices]]
   name = 'date'
   weight = 10
+
+[params]
+  defaultTheme = "dark"
+  title = "Houze ZHANG"
+  description = "Houze ZHANG"
+
+[params.home]
+  [params.home.profile]
+    enable = true
+    title = "Houze ZHANG"
+    subtitle = "Passion is all you need..."
+    social = true
+
+[params.social]
+  Linkedin = "https://www.linkedin.com/in/houzezhang/"
+  Email = "houze.zhang@outlook.com"
