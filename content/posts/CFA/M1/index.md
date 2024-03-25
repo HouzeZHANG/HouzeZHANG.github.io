@@ -1,7 +1,7 @@
 ---
 title: "Quantitative Method M1"
 date: 2024-03-25T21:50:40+01:00
-draft: true
+draft: false
 tags: ["Quantitative Method"]
 ---
 
