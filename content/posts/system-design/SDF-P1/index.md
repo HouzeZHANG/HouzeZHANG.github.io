@@ -117,7 +117,160 @@ Two main sections of IP packet (2^16 bytes)
 
 Transmission control protocol.
 Reliable way and ordered way to send IP packets.
+TCP has handshakes. Timeout. In a nutshell.
 
 ### HTTP
+
+Introduce a higher layer of abstraction for business logic. Only focus on request-response paradigm.
+
+If you're building a large-scale system...
+
+#### HTTP Request
+
+HTTP method: POST, GET, ... describe the purpose of the request.
+GET: retrieve data from server
+POST: providing data for the server
+
+with different methods and different path, different business logics occur.
+`/` is called *slash*
+
+Headers: key-value pairs for meta-data
+Body: data part
+
+#### HTTP Response
+
+*StatusCode*: which is part of standard API standards...
+404, 403
+
+set endpoint on the server side: path+request_methode
+
+```bash
+curl localhost:3000/hello
+```
+
+use `curl` to send data to destination
+
+```bash
+curl --header 'content-type: application/json' localhost:3000/hello --data '{"foo": "bar"}'
+``` 
+
+... are just guidlines, 我们可以违反标准
+
+## 3. Storage
+
+To store data and retrieve data. Set/get, record/query, read/write, ...
+
+opaque box, ...
+
+Db is just a server. Different between process and service?
+
+Distribued storage is useful when we don't want our system goes down when our database goes down.
+
+Hundreds of database products, ... Some db provides you, gurantee you certain properties but there also exist trade-offs.
+
+### Persistency
+
+User assume the data will persist through any outage or issues that might occur in your system.
+
+Power outage, crashes, core dump. Once everything is booted back up the data will still be there.
+
+#### Disk
+
+Non-voltaile storage.
+
+#### Memory
+
+Array, hash-table decleared in the code.
+
+### Consistency
+
+Crucial for distribued systems.  Stale data or most up-to-date version of data?
+
+## 4. Latency and Throughput
+
+Two mesures of the performance of a system.
+
+Latency, how long it takes for a data to traverse a system. From one point in the system to another point in the system.
+
+In client-server model, how long it take to send a request from client to server and getting the request from server.
+
+When reading data from some storage devices(memory, disk, NFS...), the time used to read.
+
+*Orders of the magnitude*: 数量级
+Microsecond: 微秒
+1 MB from cache, 250 microseconds
+
+||||
+|---|---|---|
+|1 MB|memory|250 microsecond|
+|1 MB|SSD|1,000 microsecond|
+|1 MB|1 Gbps network|10,000 microsecond|
+|1 MB|HDD|20,000 microsecond|
+
+packet from CA --> Ne 150, 000 microsecond
+
+electricity has to travel.
+it just takes a while...
+
+系统设计中系统延迟是很重要的参考因素。
+requires instantaneous actions or things to happen. bad user experiences.
+accuracy or uptime...
+
+Video game, competing with people, lag in those types of video games.
+
+---
+
+Throughput: how much work a machine can perform in a given period of time. How much data can be transfered from on point in a system to another point of system. in a given amount of time. 
+
+Like how many requests can the server handle in a given time? (多个客户端和服务器同时连接)
+
+Latency and throughput are not correlated stuffs.   
+
+What I am trying to say here is ... 
+
+pay for more throughput
+
+ GB/s
+
+ How we mesure the throughput?
+
+ ## 5. Availability
+
+ How resistent a system is to the failures? How do you mesure it?
+
+ The percentage of a system's uptime in a given year. 50% availability.
+
+ Survive in the market.
+
+ DB fails
+
+= fault tolerance.
+
+*operational* enough such that all of its primary functions are satisfied.
+
+websites are down for a few hours, it would be upsetting for customers.
+
+outage, GCP 
+
+User hopes the website to be fully operational.
+
+Any amount of complete downtime in the system would be unaccpectable.
+
+### Nines
+
+X nine(s) availability.
+
+Ubi is 2 nines
+deal with life and death scenarios.
+
+5 nines is a gold standard.
+
+### SLA/SLO
+
+Service level agreement, service provider should tell the customers, we gurantee you this amount of availability.
+
+Service level objective. 这些指标是很重要的，对于购买服务的客户来说。
+
+Monthly uptime percentage
 
 ## References
