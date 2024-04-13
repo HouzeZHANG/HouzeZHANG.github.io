@@ -1,7 +1,7 @@
 ---
 title: "Python Cheat List"
 date: 2024-04-10T22:26:43+02:00
-draft: true
+draft: false
 tags: ["default"]
 ---
 
