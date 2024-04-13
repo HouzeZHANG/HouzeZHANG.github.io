@@ -13,6 +13,16 @@ tags: ["default"]
 freq = [[] for i in range(len(nums) + 1)]
 ```
 
+### Slicing
+
+#### 按顺序取出
+
+拷贝且按照步长为`-1`取出
+
+```python
+return (new == new[::-1])
+```
+
 ### range(beg, end, step)
 
 ```python
@@ -20,11 +30,48 @@ for i in range(len(freq) - 1, 0, -1):
     ...
 ```
 
+### Integer Division
+
+`//`实现整数除法
+
+```python
+if (board[i][j] in rows[i] or 
+    board[i][j] in cols[j] or 
+    board[i][j] in squares[(i // 3, j // 3)]):
+    return False
+```
+
+### 布尔表达式
+
+可以使用括号提升运算优先级
+
+#### 容器是否为空
+
+很多时候不需要使用`len()`来判断容器是否为空
+
+- https://leetcode.com/problems/valid-parentheses/description/
+
+```python
+return not stack
+```
+
+### 负数怎么写？
+
 ## Generic Algorithms
 
 ### sorted()
 
 ### reversed()
+
+### enumerate()
+
+在for循环中同时取到index和元素值 
+
+```python
+for i, a in enumerate(nums):
+    if i > 0 and a == nums[i - 1]:
+        ...
+```
 
 ## Containers
 
@@ -63,11 +110,13 @@ TypeError: sort() takes no positional arguments
 
 Always O(1)
 
-#### list.pop(index)
+#### list.pop(index), list.pop()
 
 Amortized O(N)
 
 该方法返回被删去的对象
+
+如果不传任何参数，则默认`pop`末尾元素
 
 ```python
 >>> a.pop(0)
@@ -86,7 +135,7 @@ Amortized O(N)
 [100, (-1, 3)]
 ```
 
-#### in / list.index(element)
+#### in, list.index(element)
 
 Amortized O(N)
 
@@ -133,7 +182,7 @@ Not so confident with this conclusion:
 -1
 ```
 
-#### str.lower(str), str.upper(str)
+#### str.lower(), str.upper()
 
 大小写转换
 
@@ -148,7 +197,9 @@ Not so confident with this conclusion:
 'hello world!'
 ```
 
-#### str.isdigit(str), str.isalpha(str)
+- https://leetcode.com/problems/valid-palindrome/
+
+#### str.isdigit(), str.isalpha()
 
 ```python
 >>> "abc".isdigit()
@@ -158,6 +209,8 @@ False
 >>> "abc".isalpha()
 True
 ```
+
+- https://leetcode.com/problems/valid-palindrome/
 
 #### str.split("sep"), str.join(iter)
 
@@ -176,6 +229,12 @@ AttributeError: 'list' object has no attribute 'join'
 >>> "-".join(res)
 'Hello-world!'
 ```
+
+#### str.replace(pattern, target)
+
+将`str`字符串中的`pattern`替换成`target`
+
+- 也许你会在<https://leetcode.com/problems/valid-palindrome/>这题尝试这个方法，但请别这么用
 
 #### ord(), chr()
 
@@ -242,13 +301,52 @@ for value, freq in frequency.items():
     ls.append((freq, value))
 ```
 
-#### dict.remove()
+#### del dict[key]
+
+从字典中移除一个元素
 
 #### dict == dict
 
+判断两个字典是否相等
+
+#### key in dict
+
+检查`key`是否在字典中
+
+- https://leetcode.com/problems/valid-parentheses/description/
+
+```python
+if c not in Map:
+    stack.append(c)
+    continue
+    ...
+```
+
 ### set
 
+#### set(iter)
+
+`set`构造器
+
+```python
+numSet = set(nums)
+```
+
+#### set.add(element)
+
+插入元素
+
+#### set.remove(element)
+
+移除元素，建议配合`in`使用。`remove`不存在的
+
+#### set.pop()
+
+随机取出一个元素，如果集合为空则抛异常
+
 ### collections.deque
+
+这个数据结构在单调栈的题目中用的很多
 
 #### append, appendleft
 
