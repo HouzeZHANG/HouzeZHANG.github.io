@@ -2,7 +2,7 @@
 title: "Python Cheat List"
 date: 2024-04-10T22:26:43+02:00
 draft: false
-tags: ["default"]
+tags: ["python"]
 ---
 
 ## Grammar
@@ -30,9 +30,18 @@ for i in range(len(freq) - 1, 0, -1):
     ...
 ```
 
-### Integer Division
+逆序遍历的时候，第二项写的是`-1`
 
-`//`实现整数除法
+```python
+for i in range(len(cost) - 3, -1, -1):
+    pass
+```
+
+### Arithmetic Operation
+
+#### Decimal Division vs Integer Division
+
+`/` vs `//`
 
 ```python
 if (board[i][j] in rows[i] or 
@@ -41,13 +50,33 @@ if (board[i][j] in rows[i] or
     return False
 ```
 
+#### Round to Zero
+
+TODO: strange
+
+这道题也可只用`int()`来round to zero
+
+https://leetcode.com/problems/evaluate-reverse-polish-notation/
+
+```python
+stack.append(int(float(a) / b))
+```
+
+?round()四舍五入
+
+#### Modulo
+
+https://leetcode.com/problems/koko-eating-bananas/description/
+
+模数不能为0，否则抛出异常
+
 ### 布尔表达式
 
 可以使用括号提升运算优先级
 
 #### 容器是否为空
 
-很多时候不需要使用`len()`来判断容器是否为空
+很多时候不需要使用`len()`来判断容器是否为空，典型的有`str`类型，`list`类型
 
 - https://leetcode.com/problems/valid-parentheses/description/
 
@@ -55,7 +84,40 @@ if (board[i][j] in rows[i] or
 return not stack
 ```
 
+merge两链表
+
+```python
+node.next = list1 or list2
+```
+
+#### None
+
+None意味着False
+
 ### 负数怎么写？
+
+### Local Functions
+
+Backtracking, BFS, DFS, ...
+
+> <https://stackoverflow.com/questions/1414304/local-functions-in-python>
+> Python doesn't allow you to reassign the value of a variable from an outer scope in an inner scope (unless you're using the keyword "global", which doesn't apply in this case).
+>
+> In general, if you're going to want to modify "a", the way people usually get around it is to use a mutable type to pass "a" around (such as a list or a dictionary). You can modify "a" via the contents of the mutable type (as you probably noticed in your testing with this setup).
+
+这道题要求返回的列表类型是`str`，如何在回溯调用过程中合理地传递参数？
+
+https://leetcode.com/problems/generate-parentheses/
+
+### Type Checker
+
+#### Optional[...]
+
+言下之意可以返回None或者传递None，这个语法在树的题目中经常用到，`None`在Python中有空指针的含义
+
+> <https://stackoverflow.com/questions/51710037/how-should-i-use-the-optional-type-hint>
+>
+> Optional[...] is a shorthand notation for Union[..., None], telling the type checker that either an object of the specific type is required, or None is required. ... stands for any valid type hint, including complex compound types or a Union[] of more types. Whenever you have a keyword argument with default value None, you should use Optional.
 
 ## Generic Algorithms
 
@@ -65,7 +127,7 @@ return not stack
 
 ### enumerate()
 
-在for循环中同时取到index和元素值 
+在for循环中同时取到index和元素值
 
 ```python
 for i, a in enumerate(nums):
@@ -73,7 +135,31 @@ for i, a in enumerate(nums):
         ...
 ```
 
-## Containers
+### zip(iter1, iter2)
+
+将可迭代对象打包成元组，返回的元组长度等于最短的元组长度
+
+该方法返回的是一个`zip`对象，但是`zip`对象不支持`sort`，所以neetcode用推导式重新组装了一个列表用于后续的排序
+
+```python
+[[p, s] for p, s in zip(position, speed)]
+```
+
+### heapq
+
+#### heapq.heapify(list)
+
+佛洛依德（最小）堆化，时间复杂度O(N)，从倒数第二层开始依次自顶向下进行堆调整
+
+#### heapq.heappush(list, value)
+
+堆插入，时间复杂度O(logN)，插入队列末尾，然后自底向上进行堆调整
+
+#### heapq.heappop(list)
+
+堆弹出，时间复杂度O(logN)，将末尾元素和堆顶元素进行交换，然后自顶向下进行堆调整
+
+## Sequential Containers
 
 ### list
 
@@ -158,9 +244,11 @@ False
 
 ### str
 
-#### str.append(element)
+#### ~~str.append(element)~~
 
-Always O(1)
+~~Always O(1)~~
+
+#### ~~str.pop()~~
 
 #### str.find(pattern, beg, end)
 
@@ -210,6 +298,17 @@ False
 True
 ```
 
+负数不是digit，解决办法是使用`str.lstrip('-').isdigit()`
+
+```python
+>>> "-11".isdigit()
+False
+>>> "123".lstrip('-')
+'123'
+>>> "123".lstrip('+-')
+'123'
+```
+
 - https://leetcode.com/problems/valid-palindrome/
 
 #### str.split("sep"), str.join(iter)
@@ -239,6 +338,27 @@ AttributeError: 'list' object has no attribute 'join'
 #### ord(), chr()
 
 比较字符串大小，通过数字转化为对应的字符
+
+## Associative Containers
+
+https://leetcode.com/problems/copy-list-with-random-pointer/
+
+类对象可以被哈希
+
+### key in containers, key ~~is~~ not in containers
+
+O(1)常数时间复杂度进行哈希查找
+
+检查`key`是否在字典中
+
+- https://leetcode.com/problems/valid-parentheses/description/
+
+```python
+if c not in Map:
+    stack.append(c)
+    continue
+    ...
+```
 
 ### dict
 
@@ -309,19 +429,6 @@ for value, freq in frequency.items():
 
 判断两个字典是否相等
 
-#### key in dict
-
-检查`key`是否在字典中
-
-- https://leetcode.com/problems/valid-parentheses/description/
-
-```python
-if c not in Map:
-    stack.append(c)
-    continue
-    ...
-```
-
 ### set
 
 #### set(iter)
@@ -344,6 +451,8 @@ numSet = set(nums)
 
 随机取出一个元素，如果集合为空则抛异常
 
+## Adaptors
+
 ### collections.deque
 
 这个数据结构在单调栈的题目中用的很多
@@ -351,15 +460,3 @@ numSet = set(nums)
 #### append, appendleft
 
 #### pop, popleft
-
-### heapq
-
-#### heapq.heapify
-
-#### heapq.heappush
-
-#### heapq.heappop
-
-
-
-## References
