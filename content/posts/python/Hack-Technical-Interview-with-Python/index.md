@@ -13,6 +13,16 @@ tags: ["python"]
 freq = [[] for i in range(len(nums) + 1)]
 ```
 
+### ord(char)
+
+https://leetcode.com/problems/permutation-in-string/
+
+获取`char`字符的ASCII码，用于将字符放入长度为26的数组
+
+```python
+freq[ord(c) - ord('a')] += 1
+```
+
 ### Slicing
 
 #### 按顺序取出
@@ -38,6 +48,14 @@ for i in range(len(cost) - 3, -1, -1):
 ```
 
 ### Arithmetic Operation
+
+#### Max, Min
+
+`float("infinity")`为最大浮点数，`-float("infinity")`为最小浮点数
+
+#### abs(x)
+
+返回绝对值
 
 #### Decimal Division vs Integer Division
 
@@ -412,7 +430,18 @@ NameError: name 'x' is not defined
 {100}
 ```
 
-#### dict.values(), dict.items()
+#### dict.values()
+
+获得字典的值集合，配合`max()`可以很方便的返回值的最大值（或最小值）
+
+https://leetcode.com/problems/longest-repeating-character-replacement/
+
+```python
+while (r - l + 1) - max(count.values()) > k:
+    ...
+```
+
+#### dict.items()
 
 ```python
 for x in nums:
@@ -453,10 +482,12 @@ numSet = set(nums)
 
 ## Adaptors
 
-### collections.deque
+### collections.deque()
 
-这个数据结构在单调栈的题目中用的很多
+这个数据结构在单调栈与图的dfs，bfs中比较常见
 
-#### append, appendleft
+https://leetcode.com/problems/number-of-islands/
+
+#### collections.deque.append(), collections.deque.appendleft()
 
 #### pop, popleft
