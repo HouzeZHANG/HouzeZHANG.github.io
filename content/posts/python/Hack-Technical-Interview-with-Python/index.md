@@ -88,6 +88,61 @@ https://leetcode.com/problems/koko-eating-bananas/description/
 
 模数不能为0，否则抛出异常
 
+#### Bitwise Operation
+
+<https://wiki.python.org/moin/BitwiseOperators>
+
+##### Bitwise AND
+
+```python
+if (i & 1) == 0:
+    ...
+
+```
+
+##### Bitwise OR
+
+```python
+if (i | 1) == 1:
+    ...
+
+```
+
+##### Bitwise XOR
+
+```python
+if (i ^ 1) == 0:
+    ...
+
+```
+
+##### Bitwise NOT
+
+取反码意味着`~i == -i - 1`
+
+```python
+if (~i) == 0:
+    ...
+
+
+```
+
+##### Bitwise Left Shift
+
+```python
+if (i << 1) == 2:
+    ...
+
+```
+
+##### Bitwise Right Shift
+
+```python
+if (i >> 1) == 0:
+    ...
+
+```
+
 ### 布尔表达式
 
 可以使用括号提升运算优先级
@@ -488,6 +543,35 @@ numSet = set(nums)
 
 https://leetcode.com/problems/number-of-islands/
 
-#### collections.deque.append(), collections.deque.appendleft()
+#### collections.deque.append(element), collections.deque.appendleft(element)
 
-#### pop, popleft
+#### collections.deque.pop(element), collections.deque.popleft(element)
+
+### queue.PriorityQueue()
+
+python中的优先队列，AKA最小堆，允许重复元素
+
+#### queue.PriorityQueue.put()
+
+一般存的是元组，第一个元素是优先级，第二个元素是值
+
+```python
+pq.put((l.val, l))
+val, node = pq.get()
+```
+
+#### queue.PriorityQueue.get()
+
+#### queue.PriorityQueue.empty()
+
+```python
+while not pq.empty():
+    ...
+```
+
+#### queue.PriorityQueue.qsize()
+
+```python
+while pq.qsize() > 1:
+    ...
+```
