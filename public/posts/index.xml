@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Houze ZHANG</title>
+    <link>https://gohugo-theme-ananke.pages.dev/posts/</link>
+    <description>Recent content in Posts on Houze ZHANG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 05 May 2024 15:25:57 +0200</lastBuildDate><atom:link href="https://gohugo-theme-ananke.pages.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dependency Analysis for Windows C&#43;&#43; Project</title>
+      <link>https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/</link>
+      <pubDate>Sun, 05 May 2024 15:25:57 +0200</pubDate>
+      
+      <guid>https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/</guid>
+      <description>中文在下面👇
+Introduction When deconstructing and porting complex C++ projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&amp;rsquo;t know where to start.</description>
+    </item>
+    
+    <item>
+      <title>X Compile</title>
+      <link>https://gohugo-theme-ananke.pages.dev/posts/compiler/x-compile/</link>
+      <pubDate>Sun, 05 May 2024 13:20:33 +0200</pubDate>
+      
+      <guid>https://gohugo-theme-ananke.pages.dev/posts/compiler/x-compile/</guid>
+      <description>中文在下面👇
+Introduction For the past few weeks, I&amp;rsquo;ve been diving into cross-compilation. It&amp;rsquo;s been a great learning experience as I get to understand the differences between various operating systems and compilers. Here, I&amp;rsquo;m documenting some of the things I&amp;rsquo;ve learned.
+The idea behind cross-compilation is to compile programs on a host machine that can run natively on a target machine. This technique is quite common in the gaming industry, where game clients often need to run in different environments, yet for development management purposes, the development environment tends to remain consistent.</description>
+    </item>
+    
+  </channel>
+</rss>

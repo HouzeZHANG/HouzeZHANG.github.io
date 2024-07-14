@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Dependency Analysis for Windows C&#43;&#43; Project | Houze ZHANG</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="中文在下面👇
+Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start.">
+    <meta name="generator" content="Hugo 0.115.0">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/">
+    
+
+    <meta property="og:title" content="Dependency Analysis for Windows C&#43;&#43; Project" />
+<meta property="og:description" content="中文在下面👇
+Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-05T15:25:57+02:00" />
+<meta property="article:modified_time" content="2024-05-05T15:25:57+02:00" />
+<meta itemprop="name" content="Dependency Analysis for Windows C&#43;&#43; Project">
+<meta itemprop="description" content="中文在下面👇
+Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start."><meta itemprop="datePublished" content="2024-05-05T15:25:57+02:00" />
+<meta itemprop="dateModified" content="2024-05-05T15:25:57+02:00" />
+<meta itemprop="wordCount" content="782">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dependency Analysis for Windows C&#43;&#43; Project"/>
+<meta name="twitter:description" content="中文在下面👇
+Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Houze ZHANG
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+    
+    <a href="https://www.linkedin.com/in/houzezhang" target="_blank" rel="noopener" class="linkedin ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" aria-label="follow on LinkedIn——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+</div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+      
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/&amp;title=Dependency%20Analysis%20for%20Windows%20C&#43;&#43;%20Project" class="ananke-social-link linkedin no-underline" aria-label="share on LinkedIn">
+        
+        <span class="icon"> <svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span>
+        
+      </a>
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Dependency Analysis for Windows C&#43;&#43; Project</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2024-05-05T15:25:57+02:00">May 5, 2024</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>中文在下面👇</p>
+<h2 id="introduction">Introduction</h2>
+<p>When deconstructing and porting complex C++ projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start.</p>
+<p>This article will introduce my experience in analyzing dependencies of large C++ projects on the Windows platform.</p>
+<h2 id="visual-studios-project-and-solution">Visual Studio&rsquo;s Project and Solution</h2>
+<p><em>Projects</em> and <em>Solutions</em> are logical descriptions of C++ modules in Visual Studio (referred to as VS hereafter), where a Solution is a collection of Projects. Generally, without using CMake templates, compilation and linking are done at the Project level, producing either C++ executable files or C++ libraries (static or dynamic). Projects can depend on each other since the output objects can have dependencies; for example, an executable generated by Project A may depend on a static or dynamic library generated by Project B during compilation or runtime, or it may depend on an import library.</p>
+<p>Usually, configuring a C++ project is done at the Project level. By right-clicking on a Project entry, developers can easily use the VS GUI to set build options for the Project. These parameters are persistently stored locally in configuration files. Compiler options, include file paths, linker search paths, target settings, etc., are key points to consider. It&rsquo;s generally recommended to configure projects via the GUI rather than directly modifying the XML configuration files, which can be thousands of lines long. By the way, if you have installed LLVM-related development tools via the VS installer, you can find the clang-cl compiler in the configuration options, which uses Clang as the frontend and Windows MSVC platform as the backend compiler.</p>
+<h2 id="classification-of-library-files-and-import-libraries">Classification of Library Files and Import Libraries</h2>
+<p>Before diving into dependency analysis, we need to understand how dependencies are manifested. Typically, in a C++ program, dependencies are exhibited in executable programs relying on libraries and libraries depending on other libraries. In Windows, static libraries end with <code>.lib</code>, while dynamic libraries end with <code>.dll</code>. Often, you&rsquo;ll see files with the same name but different extensions (e.g., <code>.lib</code> and <code>.dll</code>) in a project; this is likely due to the import library mechanism on Windows. Simply put, during compilation, a program needs to link the import library corresponding to a dynamic library to use that dynamic library with the dynamic linker during execution. This is somewhat similar to how C++ compilation and linking phases require including library header files to obtain symbols from the library, allowing the compiler linker to generate executable files successfully.</p>
+<h2 id="dependency-analysis-methods">Dependency Analysis Methods</h2>
+<p>How do we analyze dependencies? If you want to analyze dynamic library dependencies or executable files, you can use tools like Dependency Walker or Dependencies. As of 2024, Dependency Walker supports detecting dependency errors (such as checking for circular dependencies), claims to be able to find all dependencies, supports persistence by saving dependency relationships in a text format locally (though readability can be challenging). On the other hand, Dependencies doesn&rsquo;t have the aforementioned features but is notably faster in parsing dependencies compared to Dependency Walker. One tricky aspect is that Windows&rsquo; library file matching rules are case-insensitive, so you may need to manually adjust the case when organizing or writing reports.</p>
+<p>As for static library dependency analysis, we can refer to the toolchain configuration files for insights. In theory, static libraries cannot be analyzed externally by third-party software. This provides a natural security advantage for static libraries compared to dynamic libraries (of course, with clear disadvantages such as static size, memory usage during execution, incremental compilation speed, etc.). In the gaming industry, it&rsquo;s quite common to distribute static libraries since developers prefer not to expose too much of their code implementation to hackers.</p>
+<h2 id="runtime">Runtime</h2>
+<p>During dependency analysis, you often encounter library names containing &ldquo;RT,&rdquo; which stands for <em>runtime</em>. Runtime generally refers to the environment required for a program to run. The kernel is also part of the runtime.</p>
+<h2 id="plantuml">PlantUML</h2>
+<p>PlantUML is a software that helps programmers represent project dependencies. Its advantages include simplicity, extensibility, separate source code storage that can be merged, automatic formatting, among others.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Dependency analysis is a prerequisite step for porting and refactoring C++ projects. On the Windows platform, we can use tools like the VS GUI, Dependency Walker, Dependencies, inspect toolchain configuration files, PlantUML, etc., to help us perform dependency analysis.</p>
+<h2 id="introduction-1">Introduction</h2>
+<p>在解构，移植复杂C++工程时，对项目文件的依赖管理与分析至关重要。在线游戏开发涉及千奇百怪的依赖和库文件：下到引擎，上至UI；前有客户端，后有渲染与媒体库与服务器。理清项目的依赖关系是对项目进行移植，重构的先决步骤。搞不清楚依赖关系就进行移植和重构，好似盲人摸象，无从下手。</p>
+<p>这篇文章将介绍我在Windows平台上分析大型C++工程依赖时的经验。</p>
+<h2 id="visual-studio的project与solution">Visual Studio的Project与Solution</h2>
+<p><em>Project</em>和<em>Solution</em>是<em>Visual studio</em>（以下简称VS）对C++模块的逻辑描述，Solution是Project的集合。一般来说，在不使用CMake模板的情况下，编译和链接以Project为单位进行，其输出可以为C++可执行文件，也可以是C++的库：静态库，动态链接库。Project之间可以互相依赖，因为输出的对象之间可以存在依赖关系：比如A项目生成的A可执行文件在编译阶段，或者运行阶段将依赖B项目生成的静态库，动态库，亦或是<em>import library</em>。</p>
+<p>一般来说，对C++项目的配置也是以Project为最小单位进行的。右击Project条目，程序员可以方便地以VS的GUI界面对Project的Build选项进行设置。这些参数都会以配置文件的形式持久化地存储在本地。其中编译器选项，include file path，linker的搜索路径，target设置，都是需要关注的重点。一般还是建议通过GUI对工程配置进行设置，而不是直接打开配置文件修改动辄上千行的XML文件。顺便提一句，如果在VS installer中安装了LLVM相关的开发工具，你便能在配置选项中找到clang-cl这个以Clang为前端，Windows MSVC平台为编译器后端的编译器。</p>
+<h2 id="库文件的分类与import-library">库文件的分类与import library</h2>
+<p>在进行依赖分析之前，我们要明白依赖的表现形式是什么。一般来说，C++程序的依赖关系表现在可执行程序依赖库以及库和库之间互相依赖。在Windows下，静态库以<code>.lib</code>结尾，动态库以<code>.dll</code>结尾。在很多时候，你能看见项目中存在同名的<code>.lib</code>和<code>.dll</code>文件，这大概率是因为Windows下的import library机制在作祟。简单来说程序需要在编译阶段将动态库对应的导入库链接，才可以顺利在执行阶段用动态链接器使用动态库。这有一点类似C++编译链接阶段需要include库的头文件，从而获得库里的符号才能让编译器链接器成功生成可执行文件。</p>
+<h2 id="依赖分析方法">依赖分析方法</h2>
+<p>如何分析依赖？如果希望解析动态库依赖或者可执行文件的话可以使用Dependency Walker或者Dependencies这两款工具。截止2024年，前者支持依赖error的检测（比如检测是否存在循环依赖），“号称”能搜到全部的依赖，支持持久化，能将依赖关系以文本格式保存在本地（可读性堪忧）。后者没有上述功能，但解析速度明显比前者快不少。比较棘手的是Windows下库文件的match规则是不区分大小写的，在写报告做整理的时候需要手工改大小写。</p>
+<p>至于静态库的依赖分析，我们可以通过查看工具链配置文件来了解。静态库理论上是无法通过外部第三方解析软件进行解析的。这让静态库和动态库比有天然的安全优势（当然劣势也很明显，静态体积，执行时内存占用体积，增量编译速度etc。。。）。在游戏产业中，静态库发布是蛮常见的，毕竟开发者不希望代码的实现过多地暴露给黑客。</p>
+<h2 id="runtime-1">Runtime</h2>
+<p>在进行依赖分析的时候，经常能看见库的名字中含有<em>RT</em>。一般这是<em>runtime</em>的简称。Runtime一般指程序运行时所需要的环境。Kernel也是runtime的一部分。</p>
+<h2 id="plantuml-1">PlantUML</h2>
+<p>PlantUML是一款帮助程序员表示项目依赖的软件。简洁，可扩展，源代码可以分开保存，一同merge，自动排版，这些都是他的优势。</p>
+<h2 id="conclusion-1">Conclusion</h2>
+<p>依赖分析是C++工程移植，重构的先决步骤。在Windows平台上，我们可以使用VS的GUI界面，Dependency Walker，Dependencies，查看工具链配置文件，PlantUML等工具来帮助我们完成依赖分析。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://gohugo-theme-ananke.pages.dev/" >
+    &copy;  Houze ZHANG 2024 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+    
+    <a href="https://www.linkedin.com/in/houzezhang" target="_blank" rel="noopener" class="linkedin ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" aria-label="follow on LinkedIn——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+</div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
