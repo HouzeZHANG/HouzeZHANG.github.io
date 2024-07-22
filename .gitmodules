@@ -1,3 +1,8 @@
-# [submodule "themes/hugo-bearblog"]
-# 	path = themes/hugo-bearblog
-# 	url = https://github.com/janraasch/hugo-bearblog.git
+[submodule "themes/hugo-bearblog"]
+	path = themes/hugo-bearblog
+	url = https://github.com/janraasch/hugo-bearblog.git
+
+[submodule "themes/hugo-xmin"]
+    path = themes/hugo-xmin
+    url = https://github.com/yihui/hugo-xmin.git
+    
