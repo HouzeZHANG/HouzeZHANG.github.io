@@ -1,6 +1,6 @@
 title = "Houze ZHANG"
 languageCode = "en-us"
-theme = 'smol'
+theme = 'hugo-xmin'
 
 toc = true
 
@@ -52,4 +52,4 @@ url = "https://www.linkedin.com/in/houzezhang"
   [[menu.footer]]
         name = "Linkedin"
         url = "https://www.linkedin.com/in/houzezhang"
-        weight = 1
+        weight = 1 
