@@ -49,6 +49,12 @@ url = "https://www.linkedin.com/in/houzezhang"
         url = "/tags/"
         weight = 3
 
+  [[menu.main]]
+        identifier = "projects"
+        name = "Projects"
+        url = "/projects/"
+        weight = 4
+
   [[menu.footer]]
         name = "Linkedin"
         url = "https://www.linkedin.com/in/houzezhang"
