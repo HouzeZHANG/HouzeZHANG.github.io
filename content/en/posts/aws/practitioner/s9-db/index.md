@@ -5,7 +5,7 @@ slug: 2024-07-29-s9-db
 type: posts
 draft: false
 categories: ["AWS"]
-tags: ["AWS", "Database"]
+tags: ["AWS", "Database", "Storage"]
 ---
 
 ## Introduction
