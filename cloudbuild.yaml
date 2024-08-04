@@ -1,0 +1,54 @@
+steps:
+# Step 1: Install Hugo
+- name: 'gcr.io/cloud-builders/wget'
+  args:
+    - '-O'
+    - '/workspace/hugo.deb'
+    - 'https://github.com/gohugoio/hugo/releases/download/v0.115.0/hugo_extended_0.115.0_linux-amd64.deb'
+- name: 'gcr.io/cloud-builders/dpkg'
+  args: ['-i', '/workspace/hugo.deb']
+
+# Step 2: Install Dart Sass
+- name: 'gcr.io/cloud-builders/snap'
+  args: ['install', 'dart-sass']
+
+# Step 3: Checkout code (not necessary in Cloud Build as source is automatically cloned)
+# If submodules are required, uncomment the following steps
+# - name: 'gcr.io/cloud-builders/git'
+#   args: ['submodule', 'update', '--init', '--recursive']
+
+# Step 4: Install Node.js dependencies
+- name: 'node'
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - |
+      if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+        npm ci;
+      fi
+
+# Step 5: Build with Hugo
+- name: 'gcr.io/cloud-builders/hugo'
+  args:
+    - '--gc'
+    - '--minify'
+    - '--baseURL'
+    - 'https://your-cloud-run-service-url/'
+
+# Step 6: Deploy to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    - 'run'
+    - 'deploy'
+    - 'hugo-site'
+    - '--source'
+    - '.'
+    - '--platform'
+    - 'managed'
+    - '--region'
+    - 'YOUR_REGION'
+    - '--allow-unauthenticated'
+    - '--project'
+    - 'YOUR_PROJECT_ID'
+
+timeout: '900s'
