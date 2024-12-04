@@ -3,7 +3,7 @@ title: "Iterator and Generator"
 date: 2024-07-30T21:00:09+02:00
 slug: 2024-07-30-iter
 type: posts
-draft: false
+draft: true
 categories: ["Python Grammar"]
 tags: ["Python"]
 ---

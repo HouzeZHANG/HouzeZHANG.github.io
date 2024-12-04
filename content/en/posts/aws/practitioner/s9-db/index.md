@@ -3,7 +3,7 @@ title: "AWS-CCP Section9: Database Services"
 date: 2024-07-29T23:37:28+02:00
 slug: 2024-07-29-s9-db
 type: posts
-draft: false
+draft: true
 categories: ["AWS"]
 tags: ["AWS", "Database", "Storage"]
 ---

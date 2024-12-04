@@ -3,7 +3,7 @@ title: "Sql"
 date: 2024-07-30T18:07:38+02:00
 slug: 2024-07-30-sql
 type: posts
-draft: false
+draft: true
 categories: ["Database"]
 tags: ["SQL", "Database"]
 ---
@@ -83,6 +83,26 @@ Use `limit` to get top N from X offset.
 
 ```sql
 select * from table order by S desc limit N offset X;
+```
+
+## Math
+
+### `round()`
+
+Use `round()` to round numbers.
+
+Keep 3 decimal places.
+
+```sql
+select
+
+a.machine_id as machine_id, round(avg(b.timestamp - a.timestamp), 3) as processing_time
+
+from Activity as a
+join Activity as b
+on a.activity_type = 'start' and b.activity_type = 'end' and a.machine_id = b.machine_id and a.process_id = b.process_id
+
+group by machine_id
 ```
 
 ## Aggregation and Grouping

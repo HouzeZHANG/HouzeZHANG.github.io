@@ -3,7 +3,7 @@ title: "AWS-CCP Section8: S3-Simple Storage Service"
 date: 2024-07-29T23:37:19+02:00
 # slug: 2024-07-29-s8-s3
 type: posts
-draft: false
+draft: true
 categories: ["AWS"]
 tags: ["AWS", "S3", "Storage"]
 ---

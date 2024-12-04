@@ -3,7 +3,7 @@ title: "Lec1: Introduction to Deep Learning"
 date: 2024-08-01T19:40:49+02:00
 slug: 2024-08-01-lec1
 type: posts
-draft: false
+draft: true
 categories: ["MIT 6.S191"]
 tags: ["Deep Learning"]
 ---

@@ -3,7 +3,7 @@ title: "Decorator and Closure"
 date: 2024-07-30T21:55:28+02:00
 slug: 2024-07-30-deco
 type: posts
-draft: false
+draft: true
 categories: ["Python Grammar"]
 tags: ["Python", "Functional Programming"]
 ---
