@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rust on Houze ZHANG 张厚泽</title>
+    <link>//localhost:56857/tags/rust/</link>
+    <description>Recent content in Rust on Houze ZHANG 张厚泽</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 18 Dec 2025 17:12:00 +0100</lastBuildDate>
+    <atom:link href="//localhost:56857/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust from scratch L1: Hello world, variables, scalars and compound types</title>
+      <link>//localhost:56857/posts/rust/rust64/2025-12-18-l1/</link>
+      <pubDate>Thu, 18 Dec 2025 17:12:00 +0100</pubDate>
+      <guid>//localhost:56857/posts/rust/rust64/2025-12-18-l1/</guid>
+      <description>&lt;p&gt;In this article at least two safety features of Rust are demonstrated: overflow check and immutability by default. C++ also has tuples. The access of tuple elements is different in Rust and C++.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;toolchain&#34;&gt;Toolchain&lt;/h2&gt;&#xA;&lt;p&gt;Rust uses &lt;code&gt;cargo&lt;/code&gt; and &lt;code&gt;rustc&lt;/code&gt;. Cargo is the package manager, people also use it for compilation. Rustc is the compiler.&lt;/p&gt;&#xA;&lt;p&gt;Compile and run the program:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cargo run --bin &amp;lt;binary-name&amp;gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Compile the release version, which will &lt;strong&gt;ignore debug info such as integer overflow checks&lt;/strong&gt;:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

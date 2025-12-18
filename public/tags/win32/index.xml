@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Win32 on Houze ZHANG 张厚泽</title>
-    <link>//localhost:58910/tags/win32/</link>
+    <link>//localhost:56857/tags/win32/</link>
     <description>Recent content in Win32 on Houze ZHANG 张厚泽</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sun, 05 May 2024 15:25:57 +0200</lastBuildDate>
-    <atom:link href="//localhost:58910/tags/win32/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:56857/tags/win32/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Dependency Analysis for Windows C&#43;&#43; Project</title>
-      <link>//localhost:58910/posts/dependency-analysis/</link>
+      <link>//localhost:56857/posts/dependency-analysis/</link>
       <pubDate>Sun, 05 May 2024 15:25:57 +0200</pubDate>
-      <guid>//localhost:58910/posts/dependency-analysis/</guid>
+      <guid>//localhost:56857/posts/dependency-analysis/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;When deconstructing and porting complex C++ projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&amp;rsquo;t know where to start.&lt;/p&gt;</description>
     </item>
   </channel>

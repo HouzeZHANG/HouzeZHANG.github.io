@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Open Source Courses[notes] on Houze ZHANG 张厚泽</title>
+    <link>//localhost:56105/categories/open-source-coursesnotes/</link>
+    <description>Recent content in Open Source Courses[notes] on Houze ZHANG 张厚泽</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 13 Jul 2024 15:22:04 +0200</lastBuildDate>
+    <atom:link href="//localhost:56105/categories/open-source-coursesnotes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Xv6-Lab-1</title>
+      <link>//localhost:56105/posts/mit-s6.081/xv6-1/</link>
+      <pubDate>Sat, 13 Jul 2024 15:22:04 +0200</pubDate>
+      <guid>//localhost:56105/posts/mit-s6.081/xv6-1/</guid>
+      <description>&lt;p&gt;中文在下面👇&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/mit-pdos/xv6-public&#34;&gt;xv6&lt;/a&gt; is an educational operating system used in &lt;a href=&#34;https://pdos.csail.mit.edu/6.S081/2021/index.html&#34;&gt;MIT&amp;rsquo;s course S6.081&lt;/a&gt; on operating systems. It is a simplified OS that runs only on x86 architecture. This blog aims to document the process of completing &lt;a href=&#34;https://pdos.csail.mit.edu/6.S081/2021/labs/util.html&#34;&gt;Lab 1&lt;/a&gt; and highlight some key concepts.&lt;/p&gt;&#xA;&lt;p&gt;&#xA;&lt;figure&gt;&#xA;  &lt;img src=&#34;//localhost:56105/xv6-1.png&#34; alt=&#34;All passed!&#34; /&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;sleep&#34;&gt;Sleep&lt;/h2&gt;&#xA;&lt;p&gt;The first task is to implement the &lt;code&gt;sleep&lt;/code&gt; command in xv6. This is not a system call but a bash command in xv6. The implementation involves calling the &lt;code&gt;sleep()&lt;/code&gt; system call.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

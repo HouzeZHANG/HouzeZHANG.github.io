@@ -3,8 +3,8 @@ title: "Sql"
 date: 2024-07-30T18:07:38+02:00
 slug: 2024-07-30-sql
 type: posts
-draft: true
-categories: ["Database"]
+draft: false
+categories: ["Computer Science"]
 tags: ["SQL", "Database"]
 ---
 

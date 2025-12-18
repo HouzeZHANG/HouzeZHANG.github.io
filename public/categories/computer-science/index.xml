@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computer Science on Houze ZHANG 张厚泽</title>
+    <link>//localhost:56857/categories/computer-science/</link>
+    <description>Recent content in Computer Science on Houze ZHANG 张厚泽</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 18 Dec 2025 17:12:00 +0100</lastBuildDate>
+    <atom:link href="//localhost:56857/categories/computer-science/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust from scratch L1: Hello world, variables, scalars and compound types</title>
+      <link>//localhost:56857/posts/rust/rust64/2025-12-18-l1/</link>
+      <pubDate>Thu, 18 Dec 2025 17:12:00 +0100</pubDate>
+      <guid>//localhost:56857/posts/rust/rust64/2025-12-18-l1/</guid>
+      <description>&lt;p&gt;In this article at least two safety features of Rust are demonstrated: overflow check and immutability by default. C++ also has tuples. The access of tuple elements is different in Rust and C++.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;toolchain&#34;&gt;Toolchain&lt;/h2&gt;&#xA;&lt;p&gt;Rust uses &lt;code&gt;cargo&lt;/code&gt; and &lt;code&gt;rustc&lt;/code&gt;. Cargo is the package manager, people also use it for compilation. Rustc is the compiler.&lt;/p&gt;&#xA;&lt;p&gt;Compile and run the program:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cargo run --bin &amp;lt;binary-name&amp;gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Compile the release version, which will &lt;strong&gt;ignore debug info such as integer overflow checks&lt;/strong&gt;:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sql</title>
+      <link>//localhost:56857/posts/db/2024-07-30-sql/</link>
+      <pubDate>Tue, 30 Jul 2024 18:07:38 +0200</pubDate>
+      <guid>//localhost:56857/posts/db/2024-07-30-sql/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;The SQL language is used to access and manipulate databases. SQL is an ANSI (American National Standards Institute) standard language, but there are many different versions of the SQL language.&lt;/p&gt;&#xA;&lt;p&gt;The aim of this article is to provide a comprehensive guide to SQL and serve as a reference for SQL queries. The majority of the examples are from LeetCode.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;representation&#34;&gt;Representation&lt;/h2&gt;&#xA;&lt;h3 id=&#34;rename-table&#34;&gt;Rename Table&lt;/h3&gt;&#xA;&lt;p&gt;Use &lt;code&gt;select&lt;/code&gt; to rename table.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;select&lt;/span&gt; (...) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; (...);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;rename-field&#34;&gt;Rename Field&lt;/h3&gt;&#xA;&lt;p&gt;Use &lt;code&gt;select&lt;/code&gt; to rename field.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dependency Analysis for Windows C&#43;&#43; Project</title>
+      <link>//localhost:56857/posts/dependency-analysis/</link>
+      <pubDate>Sun, 05 May 2024 15:25:57 +0200</pubDate>
+      <guid>//localhost:56857/posts/dependency-analysis/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;When deconstructing and porting complex C++ projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&amp;rsquo;t know where to start.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cross Compile</title>
+      <link>//localhost:56857/posts/compiler/x-compile/</link>
+      <pubDate>Sun, 05 May 2024 13:20:33 +0200</pubDate>
+      <guid>//localhost:56857/posts/compiler/x-compile/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;For the past few weeks, I&amp;rsquo;ve been diving into cross-compilation. It&amp;rsquo;s been a great learning experience as I get to understand the differences between various operating systems and compilers. Here, I&amp;rsquo;m documenting some of the things I&amp;rsquo;ve learned.&lt;/p&gt;&#xA;&lt;p&gt;The idea behind cross-compilation is to compile programs on a &lt;em&gt;host machine&lt;/em&gt; that can run natively on a &lt;em&gt;target machine&lt;/em&gt;. This technique is quite common in the gaming industry, where game clients often need to run in different environments, yet for development management purposes, the development environment tends to remain consistent.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

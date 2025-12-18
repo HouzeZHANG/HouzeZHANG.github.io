@@ -2,73 +2,101 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Houze ZHANG 张厚泽</title>
-    <link>//localhost:58910/tags/</link>
+    <link>//localhost:56857/tags/</link>
     <description>Recent content in Tags on Houze ZHANG 张厚泽</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 31 Jul 2024 11:04:51 +0200</lastBuildDate>
-    <atom:link href="//localhost:58910/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Dec 2025 17:12:00 +0100</lastBuildDate>
+    <atom:link href="//localhost:56857/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust</title>
+      <link>//localhost:56857/tags/rust/</link>
+      <pubDate>Thu, 18 Dec 2025 17:12:00 +0100</pubDate>
+      <guid>//localhost:56857/tags/rust/</guid>
+      <description></description>
+    </item>
     <item>
       <title>DP</title>
-      <link>//localhost:58910/tags/dp/</link>
+      <link>//localhost:56857/tags/dp/</link>
       <pubDate>Wed, 31 Jul 2024 11:04:51 +0200</pubDate>
-      <guid>//localhost:58910/tags/dp/</guid>
+      <guid>//localhost:56857/tags/dp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Database</title>
+      <link>//localhost:56857/tags/database/</link>
+      <pubDate>Tue, 30 Jul 2024 18:07:38 +0200</pubDate>
+      <guid>//localhost:56857/tags/database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SQL</title>
+      <link>//localhost:56857/tags/sql/</link>
+      <pubDate>Tue, 30 Jul 2024 18:07:38 +0200</pubDate>
+      <guid>//localhost:56857/tags/sql/</guid>
       <description></description>
     </item>
     <item>
       <title>C</title>
-      <link>//localhost:58910/tags/c/</link>
+      <link>//localhost:56857/tags/c/</link>
       <pubDate>Sat, 20 Jul 2024 09:14:03 +0200</pubDate>
-      <guid>//localhost:58910/tags/c/</guid>
+      <guid>//localhost:56857/tags/c/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>//localhost:58910/tags/linux/</link>
+      <link>//localhost:56857/tags/linux/</link>
       <pubDate>Sat, 20 Jul 2024 09:14:03 +0200</pubDate>
-      <guid>//localhost:58910/tags/linux/</guid>
+      <guid>//localhost:56857/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MIT 6.S081</title>
+      <link>//localhost:56857/tags/mit-6.s081/</link>
+      <pubDate>Sat, 20 Jul 2024 09:14:03 +0200</pubDate>
+      <guid>//localhost:56857/tags/mit-6.s081/</guid>
       <description></description>
     </item>
     <item>
       <title>Operating System</title>
-      <link>//localhost:58910/tags/operating-system/</link>
+      <link>//localhost:56857/tags/operating-system/</link>
       <pubDate>Sat, 20 Jul 2024 09:14:03 +0200</pubDate>
-      <guid>//localhost:58910/tags/operating-system/</guid>
+      <guid>//localhost:56857/tags/operating-system/</guid>
       <description></description>
     </item>
     <item>
       <title>C&#43;&#43;</title>
-      <link>//localhost:58910/tags/c&#43;&#43;/</link>
+      <link>//localhost:56857/tags/c&#43;&#43;/</link>
       <pubDate>Sun, 05 May 2024 15:25:57 +0200</pubDate>
-      <guid>//localhost:58910/tags/c&#43;&#43;/</guid>
+      <guid>//localhost:56857/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     <item>
       <title>Library</title>
-      <link>//localhost:58910/tags/library/</link>
+      <link>//localhost:56857/tags/library/</link>
       <pubDate>Sun, 05 May 2024 15:25:57 +0200</pubDate>
-      <guid>//localhost:58910/tags/library/</guid>
+      <guid>//localhost:56857/tags/library/</guid>
       <description></description>
     </item>
     <item>
       <title>Win32</title>
-      <link>//localhost:58910/tags/win32/</link>
+      <link>//localhost:56857/tags/win32/</link>
       <pubDate>Sun, 05 May 2024 15:25:57 +0200</pubDate>
-      <guid>//localhost:58910/tags/win32/</guid>
+      <guid>//localhost:56857/tags/win32/</guid>
       <description></description>
     </item>
     <item>
       <title>Cross-Compile</title>
-      <link>//localhost:58910/tags/cross-compile/</link>
+      <link>//localhost:56857/tags/cross-compile/</link>
       <pubDate>Sun, 05 May 2024 13:20:33 +0200</pubDate>
-      <guid>//localhost:58910/tags/cross-compile/</guid>
+      <guid>//localhost:56857/tags/cross-compile/</guid>
       <description></description>
     </item>
     <item>
       <title>LLVM</title>
-      <link>//localhost:58910/tags/llvm/</link>
+      <link>//localhost:56857/tags/llvm/</link>
       <pubDate>Sun, 05 May 2024 13:20:33 +0200</pubDate>
-      <guid>//localhost:58910/tags/llvm/</guid>
+      <guid>//localhost:56857/tags/llvm/</guid>
       <description></description>
     </item>
   </channel>

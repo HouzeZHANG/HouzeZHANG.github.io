@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Houze ZHANG 张厚泽</title>
-    <link>//localhost:58910/categories/</link>
+    <link>//localhost:56857/categories/</link>
     <description>Recent content in Categories on Houze ZHANG 张厚泽</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Thu, 18 Dec 2025 17:12:00 +0100</lastBuildDate>
-    <atom:link href="//localhost:58910/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:56857/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Rust</title>
-      <link>//localhost:58910/categories/rust/</link>
+      <title>Computer Science</title>
+      <link>//localhost:56857/categories/computer-science/</link>
       <pubDate>Thu, 18 Dec 2025 17:12:00 +0100</pubDate>
-      <guid>//localhost:58910/categories/rust/</guid>
+      <guid>//localhost:56857/categories/computer-science/</guid>
       <description></description>
     </item>
     <item>
-      <title>Algorithm</title>
-      <link>//localhost:58910/categories/algorithm/</link>
+      <title>Interview</title>
+      <link>//localhost:56857/categories/interview/</link>
       <pubDate>Wed, 31 Jul 2024 11:04:51 +0200</pubDate>
-      <guid>//localhost:58910/categories/algorithm/</guid>
+      <guid>//localhost:56857/categories/interview/</guid>
       <description></description>
     </item>
     <item>
-      <title>MIT 6.S081</title>
-      <link>//localhost:58910/categories/mit-6.s081/</link>
+      <title>Open Source Courses [Notes]</title>
+      <link>//localhost:56857/categories/open-source-courses-notes/</link>
       <pubDate>Sat, 20 Jul 2024 09:14:03 +0200</pubDate>
-      <guid>//localhost:58910/categories/mit-6.s081/</guid>
+      <guid>//localhost:56857/categories/open-source-courses-notes/</guid>
       <description></description>
     </item>
   </channel>

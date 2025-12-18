@@ -3,6 +3,7 @@ title: "Dependency Analysis for Windows C++ Project"
 date: 2024-05-05T15:25:57+02:00
 draft: false
 tags: ["C++", "Win32", "Library"]
+categories: ["Computer Science"]
 ---
 
 ## Introduction

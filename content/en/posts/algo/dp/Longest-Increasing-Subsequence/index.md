@@ -4,7 +4,7 @@ date: 2024-07-31T11:04:51+02:00
 slug: 2024-07-31-longest-increasing-subsequence
 type: posts
 draft: false
-categories: ["Algorithm"]
+categories: ["Interview"]
 tags: ["DP"]
 ---
 

@@ -2,6 +2,7 @@
 title: "Cross Compile"
 date: 2024-05-05T13:20:33+02:00
 draft: false
+categories: ["Computer Science"]
 tags: ["C++", "LLVM", "Cross-Compile"]
 ---
 
