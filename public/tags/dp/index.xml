@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DP on Houze ZHANG 张厚泽</title>
+    <link>//localhost:57064/tags/dp/</link>
+    <description>Recent content in DP on Houze ZHANG 张厚泽</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 31 Jul 2024 11:04:51 +0200</lastBuildDate>
+    <atom:link href="//localhost:57064/tags/dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Longest Increasing Subsequence</title>
+      <link>//localhost:57064/posts/algo/dp/2024-07-31-longest-increasing-subsequence/</link>
+      <pubDate>Wed, 31 Jul 2024 11:04:51 +0200</pubDate>
+      <guid>//localhost:57064/posts/algo/dp/2024-07-31-longest-increasing-subsequence/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;LIS (Longest Increasing Subsequence) is a classic problem in dynamic programming. The problem is to find the length of the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order.&lt;/p&gt;&#xA;&lt;p&gt;The subsequence is not necessarily contiguous or unique. The length of the subsequence is the number of elements in it.&lt;/p&gt;&#xA;&lt;p&gt;For example:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Input: [10, 9, 2, 5, 3, 7, 101, 18]&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Output: 4&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Explanation: The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4.&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;dynamic-programming&#34;&gt;Dynamic Programming&lt;/h2&gt;&#xA;&lt;p&gt;This solution is to use dynamic programming to solve the problem.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -8,14 +8,10 @@ DefaultContentLanguage = "en"
 
 [languages]
   [languages.en]
-    title = "Houze ZHANG"
+    title = "Houze ZHANG 张厚泽"
     weight = 1
     contentDir = "content/en"
     # languageDirection = 'rtl' for Right-To-Left languages
-  [languages.fr]
-    title = "Houze ZHANG"
-    weight = 2
-    contentDir = "content/fr"
 
 [sitemap]
   changefreq = "monthly"
@@ -27,7 +23,7 @@ name = "linkedin"
 url = "https://www.linkedin.com/in/houzezhang"
 
 [params]
-    subtitle = "Use efficient code to build the world."
+    subtitle = "Software Engineer at Google"
     dateFmt = "02.01.2006 15:04"
 
 [menu]

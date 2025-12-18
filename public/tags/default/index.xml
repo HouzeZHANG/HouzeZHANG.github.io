@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Default on Houze ZHANG 张厚泽</title>
+    <link>//localhost:49940/tags/default/</link>
+    <description>Recent content in Default on Houze ZHANG 张厚泽</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 18 Dec 2025 17:12:00 +0100</lastBuildDate>
+    <atom:link href="//localhost:49940/tags/default/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>L1</title>
+      <link>//localhost:49940/posts/rust/rust64/2025-12-18-l1/</link>
+      <pubDate>Thu, 18 Dec 2025 17:12:00 +0100</pubDate>
+      <guid>//localhost:49940/posts/rust/rust64/2025-12-18-l1/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

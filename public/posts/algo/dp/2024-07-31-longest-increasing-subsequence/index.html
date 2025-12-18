@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=57064&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style type=text/css>body{font-family:monospace;}</style>
+	<title>Longest Increasing Subsequence</title>
+	
+	
+	<link rel="stylesheet" href="/css/style.css">
+	
+	
+</head>
+<body>
+	<header>
+	===========================<br>
+	== <a href="//localhost:57064/">Houze ZHANG 张厚泽</a> ==<br>
+	===========================
+	<div style="float: right;">Software Engineer at Google</div><br>
+	<p>
+	<nav>
+			<a href="/"><b>Start</b></a>.
+			
+			
+			<a href="/posts/"><b>Posts</b></a>.
+			
+			<a href="/categories/"><b>Categories</b></a>.
+			
+			<a href="/tags/"><b>Tags</b></a>.
+			
+			<a href="/projects/"><b>Projects</b></a>.
+			
+	</nav>
+	</p>
+	
+</header>
+
+	
+	<main>
+		<article>
+			<h1>Longest Increasing Subsequence</h1>
+			<b><time>31.07.2024 11:04</time></b>
+		       
+		           <a href="/tags/dp">DP</a>
+        	       
+
+			<div>
+				<h2 id="introduction">Introduction</h2>
+<p>LIS (Longest Increasing Subsequence) is a classic problem in dynamic programming. The problem is to find the length of the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order.</p>
+<p>The subsequence is not necessarily contiguous or unique. The length of the subsequence is the number of elements in it.</p>
+<p>For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>Input: [10, 9, 2, 5, 3, 7, 101, 18]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Output: 4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Explanation: The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4.
+</span></span></code></pre></div><h2 id="dynamic-programming">Dynamic Programming</h2>
+<p>This solution is to use dynamic programming to solve the problem.</p>
+<p>$$</p>
+<p>dp[i] = \max(dp[i], dp[j] + 1)</p>
+<p>$$</p>
+<p>where $0 \leq j &lt; i$ and $nums[j] &lt; nums[i]$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lis</span>(nums):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> nums:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(nums)
+</span></span><span style="display:flex;"><span>    dp <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> nums[j] <span style="color:#f92672">&lt;</span> nums[i]:
+</span></span><span style="display:flex;"><span>                dp[i] <span style="color:#f92672">=</span> max(dp[i], dp[j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max(dp)
+</span></span></code></pre></div><h2 id="real-world-example">Real World Example</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>Input: [-1, 9, 0, 8, -5, 6, -24]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Output: 3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Explanation: The longest increasing subsequence is [-1, 0, 8] or [-1, 0, 6], therefore the length is 3.
+</span></span></code></pre></div>
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/rust/rust64/2025-12-18-l1/">Rust from scratch L1: Hello world, variables, scalars and compound types</a></li>
+				
+				<li><a href="/posts/algo/dp/2024-07-31-longest-increasing-subsequence/">Longest Increasing Subsequence</a></li>
+				
+				<li><a href="/posts/mit-s6.081/xv6-2/">Xv6-Lab-2</a></li>
+				
+				<li><a href="/posts/mit-s6.081/xv6-1/">Xv6-Lab-1</a></li>
+				
+				<li><a href="/posts/dependency-analysis/">Dependency Analysis for Windows C&#43;&#43; Project</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+	<footer>
+	<p>&copy; 2025 <a href="//localhost:57064/"><b>Houze ZHANG 张厚泽</b></a>.
+	<a href="https://www.linkedin.com/in/houzezhang"><b>Linkedin</b></a>.
+	</p>
+</footer>
+
+</body>
+</html>

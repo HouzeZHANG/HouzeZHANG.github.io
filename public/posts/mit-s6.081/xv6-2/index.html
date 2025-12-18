@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=57064&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style type=text/css>body{font-family:monospace;}</style>
+	<title>Xv6-Lab-2</title>
+	
+	
+	<link rel="stylesheet" href="/css/style.css">
+	
+	
+</head>
+<body>
+	<header>
+	===========================<br>
+	== <a href="//localhost:57064/">Houze ZHANG 张厚泽</a> ==<br>
+	===========================
+	<div style="float: right;">Software Engineer at Google</div><br>
+	<p>
+	<nav>
+			<a href="/"><b>Start</b></a>.
+			
+			
+			<a href="/posts/"><b>Posts</b></a>.
+			
+			<a href="/categories/"><b>Categories</b></a>.
+			
+			<a href="/tags/"><b>Tags</b></a>.
+			
+			<a href="/projects/"><b>Projects</b></a>.
+			
+	</nav>
+	</p>
+	
+</header>
+
+	
+	<main>
+		<article>
+			<h1>Xv6-Lab-2</h1>
+			<b><time>20.07.2024 09:14</time></b>
+		       
+		           <a href="/tags/operating-system">Operating System</a>
+        	       
+		           <a href="/tags/c">C</a>
+        	       
+		           <a href="/tags/linux">Linux</a>
+        	       
+
+			<div>
+				<h2 id="introduction">Introduction</h2>
+<p>Lab2 of MIT 6.S081 is about tracing system calls and resources monitoring in the xv6 kernel. The difficulty of this lab is moderate, but it reveals the <strong>boundaries</strong> between user space and kernel space and the <strong>process structure</strong> where process information is stored.</p>
+<p>
+<figure>
+  <img src="/xv6-2.png" alt="Lab2 grade" />
+</figure>
+
+
+</p>
+<hr>
+<h2 id="trace-system-calls">Trace System Calls</h2>
+<p>This lab requires student to print out the system call number, process id, system call name, and return value of the system call traced through the utility <code>strace</code>. The child process should inherit the parent process&rsquo;s tracing.</p>
+<p>The solution is to add an extra line in the <code>void syscall(void)</code> function when the system call returns, where you can get the return value and the system call number.</p>
+<p>For the child process, you need to add a line in the <code>fork()</code> function to copy the parent process&rsquo;s tracing information to the child process.</p>
+<p>I stored the mask in the <code>proc</code> structure, which is a structure that stores process information.</p>
+<h2 id="system-observability">System Observability</h2>
+<p>This task requires students to implement a system call to get current active process number and available memory size.</p>
+<p>The idea is to traverse the process list and count the number of active processes. The available memory size can be calculated by traversing the free page table and counting the number of free pages.</p>
+<p>This is the first time I&rsquo;ve implemented a system call passing an address of the structure to the kernel to fetch the data. Previously I thought the kernel could directly access the user space, but it turns out that the kernel can only access the user space through the <code>copyout</code> function. It will cost more time than directly accessing the user space, but it is more secure. The data is copied between the kernel stack and the user stack.</p>
+<p>The following part of code is running on the kernel stack in kernel mode.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// Get metadata about file f.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// addr is a user virtual address, pointing to a struct stat.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">filestat</span>(<span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>f, uint64 addr)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> proc <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#a6e22e">myproc</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> stat st;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(f<span style="color:#f92672">-&gt;</span>type <span style="color:#f92672">==</span> FD_INODE <span style="color:#f92672">||</span> f<span style="color:#f92672">-&gt;</span>type <span style="color:#f92672">==</span> FD_DEVICE){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ilock</span>(f<span style="color:#f92672">-&gt;</span>ip);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stati</span>(f<span style="color:#f92672">-&gt;</span>ip, <span style="color:#f92672">&amp;</span>st);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">iunlock</span>(f<span style="color:#f92672">-&gt;</span>ip);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">copyout</span>(p<span style="color:#f92672">-&gt;</span>pagetable, addr, (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>st, <span style="color:#66d9ef">sizeof</span>(st)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is the <code>copyout</code> function, which copies data from the kernel to the user space.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// Copy from kernel to user.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Copy len bytes from src to virtual address dstva in a given page table.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Return 0 on success, -1 on error.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">copyout</span>(<span style="color:#66d9ef">pagetable_t</span> pagetable, uint64 dstva, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>src, uint64 len)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  uint64 n, va0, pa0;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">pte_t</span> <span style="color:#f92672">*</span>pte;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(len <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>    va0 <span style="color:#f92672">=</span> <span style="color:#a6e22e">PGROUNDDOWN</span>(dstva);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(va0 <span style="color:#f92672">&gt;=</span> MAXVA)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><h2 id="questions">Questions</h2>
+<ol>
+<li>Looking at the backtrace, what is the name of the function that called <code>syscall</code>?</li>
+</ol>
+<p><code>usertrap()</code> called <code>syscall()</code>.</p>
+<p>
+<figure>
+  <img src="/xv6-2-q-1.png" alt="usertrape calls syscall" />
+</figure>
+
+
+</p>
+<ol start="2">
+<li>What is the value of <code>p-&gt;trapframe-&gt;a7</code> and what does that value represent? (Hint: look <code>user/initcode.S</code>, the first user program xv6 starts.)</li>
+</ol>
+<p><code>SYS_exec</code> is the value of <code>p-&gt;trapframe-&gt;a7</code>.</p>
+<p>In the first call of <code>syscall()</code>, the value of <code>a7</code> is 7.</p>
+<p>
+<figure>
+  <img src="/xv6-2-q-2-1.png" alt="q2" />
+</figure>
+
+
+</p>
+<p>It is equals to <code>SYS_exec</code> which is defined in <code>syscall.h</code> as <code>7</code>.</p>
+<p>
+<figure>
+  <img src="/xv6-2-q-2-2.png" alt="q2-2" />
+</figure>
+
+
+</p>
+<p>Normally <code>a7</code> this register is used to store the system call number.</p>
+<p>
+<figure>
+  <img src="/xv6-2-q-2-3.png" alt="q2-3" />
+</figure>
+
+
+</p>
+<ol start="3">
+<li>What was the previous mode that the CPU was in?</li>
+</ol>
+<p>Lookup the <code>sstatus</code> register in the RISC-V privileged instruction set manual.</p>
+<p><del>4. Write down the assembly instruction the kernel is panicked at. Which register corresponds to the variable num?</del></p>
+<ol start="5">
+<li>Why does the kernel crash? (Hint: look at figure 3-3 in the textbook; Is address 0 mapped in the kernel address space? Is that confirmed by the value in scause about? See description of scause in the RISC-V privileged instruction set manual.)</li>
+</ol>
+<p>Because <code>0x0000000000000000</code> is not mapped in the kernel address space, the kernel crashes.</p>
+<ol start="6">
+<li>What is the name of the binary that was running when the kernel panicked? What is its process id(pid)?</li>
+</ol>
+<p><code>initcode</code> is the binary&rsquo;s name, and its pid is 1.</p>
+<hr>
+<h2 id="lecture-review-organization-and-system-calls">Lecture Review: Organization and System Calls</h2>
+<h3 id="differences-between-monolithic-kernel-os-intensive-application-and-micro-kernel-minix-l4-qnx">Differences Between Monolithic Kernel (OS-intensive application) and Micro Kernel (Minix, L4, QNX)</h3>
+<p>These are two main <strong>kernel architecture</strong> models. The former emphasizes <strong>efficiency and performance</strong>, while the latter focuses on <strong>security and isolation</strong>.</p>
+<p>In a monolithic architecture, all OS code runs in kernel mode, greatly reducing communication overhead for OS-intensive applications since system calls are not needed for communication. However, this leads to a bloated kernel codebase. The more code there is, the more bugs there can be, making this architecture more prone to bugs.</p>
+<p>The micro kernel architecture, on the other hand, tries to keep kernel code to a minimum, implementing other OS services in user mode. While this simplifies the kernel&rsquo;s complexity, it increases the frequency of system calls. When two OS components running in user mode need to communicate, they must use system calls like IPC, which is a significant overhead for performance-oriented and OS-intensive applications.</p>
+<h3 id="major-differences-between-os-and-embedded-or-real-time-systems">Major Differences Between OS and Embedded (or Real-Time) Systems</h3>
+<p>Embedded or real-time systems (e.g., using FPGA for high-speed market data services) allow programmers <strong>direct access to hardware</strong>, which is not permitted in an OS.</p>
+<p>An OS abstracts hardware by providing system calls or virtual memory, ensuring system security (virtual memory is an abstraction of memory, and time-shared CPU is an abstraction of the CPU).</p>
+<p>Typically, the mode of operation is controlled by a hardware register that cannot be modified by the user in the OS, only by the kernel. When crossing the OS boundary, the kernel checks the <strong>user&rsquo;s permissions</strong> and the <strong>legality of system call parameters</strong>. If everything is in order, the system call is executed.</p>
+<h3 id="three-main-responsibilities-of-an-os">Three Main Responsibilities of an OS</h3>
+<ol>
+<li>Multiplexing hardware</li>
+<li>Isolating processes from each other</li>
+<li>Facilitating interaction between user programs and the kernel, and between user programs themselves</li>
+</ol>
+<h3 id="risc-v-architecture">RISC-V Architecture</h3>
+<p>RISC-V is an instruction set architecture(ISA) and a 64-bit processor.</p>
+<p>It operates in three modes: machine mode, kernel mode, and user mode. Xv6 is an <strong>LP64C</strong> system, meaning long integers and pointers are 64 bits. RISC-V uses <code>ecall</code> to switch to kernel mode.</p>
+<p>Qemu is a virtualization platform used to emulate computer motherboards. Qemu, written in C, essentially runs a loop: reading, decoding, and executing RISC-V instructions.</p>
+<p>It supports GDB debugger via a GDB stub, which users can connect to through a local window using the TCP protocol. This is a basic method for debugging kernels.</p>
+<p>
+<figure>
+  <img src="/xv6-2-debug-kernel.png" alt="debug-xv6" />
+</figure>
+
+
+</p>
+<h3 id="compilation-and-assembly-process">Compilation and Assembly Process</h3>
+<p><code>pro.c</code> &ndash;gcc&ndash;&gt; <code>pro.S</code> (RISC-V assembly) &ndash;as&ndash;&gt; <code>pro.o</code> (binary version of assembly) &ndash;ld&ndash;&gt; <code>pro</code></p>
+<p><code>.asm</code> is the disassembly file of the kernel.</p>
+<h3 id="process-as-the-basic-unit-of-isolation-in-os">Process as the Basic Unit of Isolation in OS</h3>
+<p>Virtual memory plays a significant role here. The size of virtual memory is much smaller than the entire 64-bit address space; the actual addressable space in Xv6 is about 40 bits.</p>
+<p>Typically, OS threads have two stacks: user stack and kernel stack, to prevent users from attacking the kernel via the stack. Apart from authentication and parameter validation, even the data is completely isolated. The OS makes considerable efforts to ensure isolation.</p>
+
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/rust/rust64/2025-12-18-l1/">Rust from scratch L1: Hello world, variables, scalars and compound types</a></li>
+				
+				<li><a href="/posts/algo/dp/2024-07-31-longest-increasing-subsequence/">Longest Increasing Subsequence</a></li>
+				
+				<li><a href="/posts/mit-s6.081/xv6-2/">Xv6-Lab-2</a></li>
+				
+				<li><a href="/posts/mit-s6.081/xv6-1/">Xv6-Lab-1</a></li>
+				
+				<li><a href="/posts/dependency-analysis/">Dependency Analysis for Windows C&#43;&#43; Project</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+	<footer>
+	<p>&copy; 2025 <a href="//localhost:57064/"><b>Houze ZHANG 张厚泽</b></a>.
+	<a href="https://www.linkedin.com/in/houzezhang"><b>Linkedin</b></a>.
+	</p>
+</footer>
+
+</body>
+</html>

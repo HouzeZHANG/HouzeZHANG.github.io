@@ -1,153 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Dependency Analysis for Windows C&#43;&#43; Project | Houze ZHANG</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="中文在下面👇
-Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start.">
-    <meta name="generator" content="Hugo 0.115.0">
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-
-    
-      
-
-    
-
-    
-
-    
-      <link rel="canonical" href="https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/">
-    
-
-    <meta property="og:title" content="Dependency Analysis for Windows C&#43;&#43; Project" />
-<meta property="og:description" content="中文在下面👇
-Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-05-05T15:25:57+02:00" />
-<meta property="article:modified_time" content="2024-05-05T15:25:57+02:00" />
-<meta itemprop="name" content="Dependency Analysis for Windows C&#43;&#43; Project">
-<meta itemprop="description" content="中文在下面👇
-Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start."><meta itemprop="datePublished" content="2024-05-05T15:25:57+02:00" />
-<meta itemprop="dateModified" content="2024-05-05T15:25:57+02:00" />
-<meta itemprop="wordCount" content="782">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Dependency Analysis for Windows C&#43;&#43; Project"/>
-<meta name="twitter:description" content="中文在下面👇
-Introduction When deconstructing and porting complex C&#43;&#43; projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start."/>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=57064&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style type=text/css>body{font-family:monospace;}</style>
+	<title>Dependency Analysis for Windows C&#43;&#43; Project</title>
+	
+	
+	<link rel="stylesheet" href="/css/style.css">
+	
+	
+</head>
+<body>
+	<header>
+	===========================<br>
+	== <a href="//localhost:57064/">Houze ZHANG 张厚泽</a> ==<br>
+	===========================
+	<div style="float: right;">Software Engineer at Google</div><br>
+	<p>
+	<nav>
+			<a href="/"><b>Start</b></a>.
+			
+			
+			<a href="/posts/"><b>Posts</b></a>.
+			
+			<a href="/categories/"><b>Categories</b></a>.
+			
+			<a href="/tags/"><b>Tags</b></a>.
+			
+			<a href="/projects/"><b>Projects</b></a>.
+			
+	</nav>
+	</p>
+	
+</header>
 
 	
-  </head>
+	<main>
+		<article>
+			<h1>Dependency Analysis for Windows C&#43;&#43; Project</h1>
+			<b><time>05.05.2024 15:25</time></b>
+		       
+		           <a href="/tags/c&#43;&#43;">C&#43;&#43;</a>
+        	       
+		           <a href="/tags/win32">Win32</a>
+        	       
+		           <a href="/tags/library">Library</a>
+        	       
 
-  <body class="ma0 avenir bg-near-white">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        Houze ZHANG
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-<div class="ananke-socials">
-  
-    
-    <a href="https://www.linkedin.com/in/houzezhang" target="_blank" rel="noopener" class="linkedin ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" aria-label="follow on LinkedIn——Opens in a new window">
-      
-        <span class="icon"><svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
-</svg>
-</span>
-      
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
-</svg>
-</span></a>
-  
-</div>
-
-    </div>
-  </div>
-</nav>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked ttu">
-          
-        Posts
-      </aside>
-      
-
-
-
-
-
-
-
-
-
-
-  <div id="sharing" class="mt3 ananke-socials">
-    
-      
-      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://gohugo-theme-ananke.pages.dev/posts/dependency-analysis/&amp;title=Dependency%20Analysis%20for%20Windows%20C&#43;&#43;%20Project" class="ananke-social-link linkedin no-underline" aria-label="share on LinkedIn">
-        
-        <span class="icon"> <svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
-</svg>
-</span>
-        
-      </a>
-    
-  </div>
-
-
-      <h1 class="f1 athelas mt3 mb1">Dependency Analysis for Windows C&#43;&#43; Project</h1>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2024-05-05T15:25:57+02:00">May 5, 2024</time>
-      
-
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>中文在下面👇</p>
-<h2 id="introduction">Introduction</h2>
+			<div>
+				<h2 id="introduction">Introduction</h2>
 <p>When deconstructing and porting complex C++ projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don&rsquo;t know where to start.</p>
 <p>This article will introduce my experience in analyzing dependencies of large C++ projects on the Windows platform.</p>
 <h2 id="visual-studios-project-and-solution">Visual Studio&rsquo;s Project and Solution</h2>
@@ -181,50 +84,39 @@ Introduction When deconstructing and porting complex C&#43;&#43; projects, manag
 <p>PlantUML是一款帮助程序员表示项目依赖的软件。简洁，可扩展，源代码可以分开保存，一同merge，自动排版，这些都是他的优势。</p>
 <h2 id="conclusion-1">Conclusion</h2>
 <p>依赖分析是C++工程移植，重构的先决步骤。在Windows平台上，我们可以使用VS的GUI界面，Dependency Walker，Dependencies，查看工具链配置文件，PlantUML等工具来帮助我们完成依赖分析。</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
-      </div>
-    </div>
 
-    <aside class="w-30-l mt6-l">
-
-
-
-
+			</div>
+		</article>
+	</main>
+<aside>
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/posts/rust/rust64/2025-12-18-l1/">Rust from scratch L1: Hello world, variables, scalars and compound types</a></li>
+				
+				<li><a href="/posts/algo/dp/2024-07-31-longest-increasing-subsequence/">Longest Increasing Subsequence</a></li>
+				
+				<li><a href="/posts/mit-s6.081/xv6-2/">Xv6-Lab-2</a></li>
+				
+				<li><a href="/posts/mit-s6.081/xv6-1/">Xv6-Lab-1</a></li>
+				
+				<li><a href="/posts/dependency-analysis/">Dependency Analysis for Windows C&#43;&#43; Project</a></li>
+				
+			</ul>
+		</div>
+	</div>
 </aside>
 
-  </article>
 
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://gohugo-theme-ananke.pages.dev/" >
-    &copy;  Houze ZHANG 2024 
-  </a>
-    <div>
-<div class="ananke-socials">
-  
-    
-    <a href="https://www.linkedin.com/in/houzezhang" target="_blank" rel="noopener" class="linkedin ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" aria-label="follow on LinkedIn——Opens in a new window">
-      
-        <span class="icon"><svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
-</svg>
-</span>
-      
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
-</svg>
-</span></a>
-  
-</div>
-</div>
-  </div>
+	<footer>
+	<p>&copy; 2025 <a href="//localhost:57064/"><b>Houze ZHANG 张厚泽</b></a>.
+	<a href="https://www.linkedin.com/in/houzezhang"><b>Linkedin</b></a>.
+	</p>
 </footer>
 
-  </body>
+</body>
 </html>

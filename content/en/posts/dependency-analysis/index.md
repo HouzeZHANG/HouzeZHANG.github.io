@@ -5,8 +5,6 @@ draft: false
 tags: ["C++", "Win32", "Library"]
 ---
 
-中文在下面👇
-
 ## Introduction
 
 When deconstructing and porting complex C++ projects, managing and analyzing project file dependencies is crucial. Online game development involves a myriad of dependencies and library files: from engines to UI; from clients to rendering and media libraries to servers. Clarifying the dependency relationships within a project is a prerequisite for porting and refactoring. Trying to port or refactor without understanding these dependencies is like a blind person feeling an elephant — you don't know where to start.
