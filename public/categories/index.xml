@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Houze ZHANG 张厚泽</title>
-    <link>//localhost:57064/categories/</link>
+    <link>//localhost:58910/categories/</link>
     <description>Recent content in Categories on Houze ZHANG 张厚泽</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Thu, 18 Dec 2025 17:12:00 +0100</lastBuildDate>
-    <atom:link href="//localhost:57064/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:58910/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rust</title>
-      <link>//localhost:57064/categories/rust/</link>
+      <link>//localhost:58910/categories/rust/</link>
       <pubDate>Thu, 18 Dec 2025 17:12:00 +0100</pubDate>
-      <guid>//localhost:57064/categories/rust/</guid>
+      <guid>//localhost:58910/categories/rust/</guid>
       <description></description>
     </item>
     <item>
       <title>Algorithm</title>
-      <link>//localhost:57064/categories/algorithm/</link>
+      <link>//localhost:58910/categories/algorithm/</link>
       <pubDate>Wed, 31 Jul 2024 11:04:51 +0200</pubDate>
-      <guid>//localhost:57064/categories/algorithm/</guid>
+      <guid>//localhost:58910/categories/algorithm/</guid>
       <description></description>
     </item>
     <item>
       <title>MIT 6.S081</title>
-      <link>//localhost:57064/categories/mit-6.s081/</link>
+      <link>//localhost:58910/categories/mit-6.s081/</link>
       <pubDate>Sat, 20 Jul 2024 09:14:03 +0200</pubDate>
-      <guid>//localhost:57064/categories/mit-6.s081/</guid>
+      <guid>//localhost:58910/categories/mit-6.s081/</guid>
       <description></description>
     </item>
   </channel>

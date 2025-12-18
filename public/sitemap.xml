@@ -2,112 +2,112 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:57064/categories/</loc>
+    <loc>//localhost:58910/categories/</loc>
     <lastmod>2025-12-18T17:12:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/</loc>
+    <loc>//localhost:58910/</loc>
     <lastmod>2025-12-18T17:12:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/posts/</loc>
+    <loc>//localhost:58910/posts/</loc>
     <lastmod>2025-12-18T17:12:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/categories/rust/</loc>
+    <loc>//localhost:58910/categories/rust/</loc>
     <lastmod>2025-12-18T17:12:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/posts/rust/rust64/2025-12-18-l1/</loc>
+    <loc>//localhost:58910/posts/rust/rust64/2025-12-18-l1/</loc>
     <lastmod>2025-12-18T17:12:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/categories/algorithm/</loc>
+    <loc>//localhost:58910/categories/algorithm/</loc>
     <lastmod>2024-07-31T11:04:51+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/dp/</loc>
+    <loc>//localhost:58910/tags/dp/</loc>
     <lastmod>2024-07-31T11:04:51+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/posts/algo/dp/2024-07-31-longest-increasing-subsequence/</loc>
+    <loc>//localhost:58910/posts/algo/dp/2024-07-31-longest-increasing-subsequence/</loc>
     <lastmod>2024-07-31T11:04:51+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/</loc>
+    <loc>//localhost:58910/tags/</loc>
     <lastmod>2024-07-31T11:04:51+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/c/</loc>
+    <loc>//localhost:58910/tags/c/</loc>
     <lastmod>2024-07-20T09:14:03+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/linux/</loc>
+    <loc>//localhost:58910/tags/linux/</loc>
     <lastmod>2024-07-20T09:14:03+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/categories/mit-6.s081/</loc>
+    <loc>//localhost:58910/categories/mit-6.s081/</loc>
     <lastmod>2024-07-20T09:14:03+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/operating-system/</loc>
+    <loc>//localhost:58910/tags/operating-system/</loc>
     <lastmod>2024-07-20T09:14:03+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/posts/mit-s6.081/xv6-2/</loc>
+    <loc>//localhost:58910/posts/mit-s6.081/xv6-2/</loc>
     <lastmod>2024-07-20T09:14:03+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/posts/mit-s6.081/xv6-1/</loc>
+    <loc>//localhost:58910/posts/mit-s6.081/xv6-1/</loc>
     <lastmod>2024-07-13T15:22:04+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/c&#43;&#43;/</loc>
+    <loc>//localhost:58910/tags/c&#43;&#43;/</loc>
     <lastmod>2024-05-05T15:25:57+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/posts/dependency-analysis/</loc>
+    <loc>//localhost:58910/posts/dependency-analysis/</loc>
     <lastmod>2024-05-05T15:25:57+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/library/</loc>
+    <loc>//localhost:58910/tags/library/</loc>
     <lastmod>2024-05-05T15:25:57+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/win32/</loc>
+    <loc>//localhost:58910/tags/win32/</loc>
     <lastmod>2024-05-05T15:25:57+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/posts/compiler/x-compile/</loc>
+    <loc>//localhost:58910/posts/compiler/x-compile/</loc>
     <lastmod>2024-05-05T13:20:33+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/cross-compile/</loc>
+    <loc>//localhost:58910/tags/cross-compile/</loc>
     <lastmod>2024-05-05T13:20:33+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>//localhost:57064/tags/llvm/</loc>
+    <loc>//localhost:58910/tags/llvm/</loc>
     <lastmod>2024-05-05T13:20:33+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

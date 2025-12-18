@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cross-Compile on Houze ZHANG 张厚泽</title>
-    <link>//localhost:57064/tags/cross-compile/</link>
+    <link>//localhost:58910/tags/cross-compile/</link>
     <description>Recent content in Cross-Compile on Houze ZHANG 张厚泽</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sun, 05 May 2024 13:20:33 +0200</lastBuildDate>
-    <atom:link href="//localhost:57064/tags/cross-compile/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:58910/tags/cross-compile/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cross Compile</title>
-      <link>//localhost:57064/posts/compiler/x-compile/</link>
+      <link>//localhost:58910/posts/compiler/x-compile/</link>
       <pubDate>Sun, 05 May 2024 13:20:33 +0200</pubDate>
-      <guid>//localhost:57064/posts/compiler/x-compile/</guid>
+      <guid>//localhost:58910/posts/compiler/x-compile/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;For the past few weeks, I&amp;rsquo;ve been diving into cross-compilation. It&amp;rsquo;s been a great learning experience as I get to understand the differences between various operating systems and compilers. Here, I&amp;rsquo;m documenting some of the things I&amp;rsquo;ve learned.&lt;/p&gt;&#xA;&lt;p&gt;The idea behind cross-compilation is to compile programs on a &lt;em&gt;host machine&lt;/em&gt; that can run natively on a &lt;em&gt;target machine&lt;/em&gt;. This technique is quite common in the gaming industry, where game clients often need to run in different environments, yet for development management purposes, the development environment tends to remain consistent.&lt;/p&gt;</description>
     </item>
   </channel>
